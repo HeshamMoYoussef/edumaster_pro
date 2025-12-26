@@ -1,0 +1,79 @@
+name: edumaster_pro
+description: "EduMaster Pro - Advanced Educational Platform"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State Management & DI
+  get: ^4.7.3
+
+  # Reactive Forms
+  reactive_forms: ^18.2.2
+
+  # Storage
+  get_storage: ^2.1.1
+
+  # Network
+  dio: ^5.9.0
+  connectivity_plus: ^7.0.0
+
+  # UI Components
+  cached_network_image: ^3.4.1
+  flutter_svg: ^2.2.3
+  shimmer: ^3.0.0
+  flutter_animate: ^4.5.2
+  lottie: ^3.3.2
+
+  # Charts
+  fl_chart: ^1.1.1
+
+  # Utils
+  intl: ^0.20.2
+  intl_phone_field: ^3.2.0  # حقل هاتف ذكي حسب الدولة
+  timeago: ^3.7.1
+  url_launcher: ^6.3.2
+  share_plus: ^12.0.1
+
+  # Icons
+  iconsax: ^0.0.8
+
+  # Fonts
+  google_fonts: ^6.3.3
+
+  # Image Picker
+  image_picker: ^1.2.1
+
+  # Video Player
+  video_player: ^2.10.1
+  chewie: ^1.13.0
+
+  # WebRTC للفيديو المضمن داخل التطبيق (بدلاً من Jitsi)
+  flutter_webrtc: ^1.2.1
+
+  # Permission handler for camera/mic permissions
+  permission_handler: ^12.0.1
+
+  # Local Notifications للتذكير بالجلسات
+  flutter_local_notifications: ^19.5.0
+  timezone: ^0.10.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/animations/
