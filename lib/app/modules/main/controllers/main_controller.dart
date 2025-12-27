@@ -9,31 +9,31 @@ class MainController extends GetxController {
 
   final pageController = PageController();
 
-  final List<BottomNavItem> navItems = const [
+  List<BottomNavItem> get navItems => [
     BottomNavItem(
       icon: Icons.home_outlined,
       activeIcon: Icons.home,
-      label: 'الرئيسية',
+      labelKey: 'home',
     ),
     BottomNavItem(
       icon: Icons.school_outlined,
       activeIcon: Icons.school,
-      label: 'الكورسات',
+      labelKey: 'courses',
     ),
     BottomNavItem(
       icon: Icons.people_outlined,
       activeIcon: Icons.people,
-      label: 'المعلمون',
+      labelKey: 'teachers',
     ),
     BottomNavItem(
       icon: Icons.calendar_today_outlined,
       activeIcon: Icons.calendar_today,
-      label: 'الجلسات',
+      labelKey: 'sessions',
     ),
     BottomNavItem(
       icon: Icons.person_outlined,
       activeIcon: Icons.person,
-      label: 'حسابي',
+      labelKey: 'my_account',
     ),
   ];
 
@@ -52,11 +52,13 @@ class MainController extends GetxController {
 class BottomNavItem {
   final IconData icon;
   final IconData activeIcon;
-  final String label;
+  final String labelKey;
 
   const BottomNavItem({
     required this.icon,
     required this.activeIcon,
-    required this.label,
+    required this.labelKey,
   });
+
+  String get label => labelKey.tr;
 }

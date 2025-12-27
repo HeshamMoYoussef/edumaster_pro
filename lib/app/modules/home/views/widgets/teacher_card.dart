@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/color_constants.dart';
@@ -139,7 +140,7 @@ class TeacherCard extends StatelessWidget {
 
             // Price
             Text(
-              '${teacher.hourlyRate.toInt()} ر.س/ساعة',
+              '${teacher.hourlyRate.toInt()} ${'sar_per_hour'.tr}',
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.bold,

@@ -10,7 +10,7 @@ class AiTutorView extends GetView<AiTutorController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('المساعد الذكي'), centerTitle: true),
+      appBar: AppBar(title: Text('ai_assistant'.tr), centerTitle: true),
       body: Column(
         children: [
           Expanded(
@@ -45,7 +45,7 @@ class AiTutorView extends GetView<AiTutorController> {
                   Expanded(
                     child: TextField(
                       controller: controller.textController,
-                      decoration: const InputDecoration(hintText: 'اكتب سؤالك...', border: InputBorder.none),
+                      decoration: InputDecoration(hintText: 'type_message'.tr, border: InputBorder.none),
                       onSubmitted: (_) => controller.sendMessage(),
                     ),
                   ),

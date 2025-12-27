@@ -11,7 +11,7 @@ class WalletView extends GetView<WalletController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('محفظتي'), centerTitle: true),
+      appBar: AppBar(title: Text('wallet'.tr), centerTitle: true),
       body: Obx(() {
         if (controller.isLoading || controller.wallet == null) {
           return const LoadingWidget();
@@ -29,15 +29,15 @@ class WalletView extends GetView<WalletController> {
               ),
               child: Column(
                 children: [
-                  const Text('الرصيد الحالي', style: TextStyle(color: Colors.white70)),
+                  Text('balance'.tr, style: const TextStyle(color: Colors.white70)),
                   const SizedBox(height: 8),
-                  Text('${wallet.balance.toInt()} ر.س', style: const TextStyle(color: Colors.white, fontSize: 36, fontWeight: FontWeight.bold)),
+                  Text('${wallet.balance.toInt()} ${'sar'.tr}', style: const TextStyle(color: Colors.white, fontSize: 36, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('🪙 ', style: TextStyle(fontSize: 24)),
-                      Text('${wallet.eduCoins} عملة', style: const TextStyle(color: Colors.white, fontSize: 18)),
+                      Text('${wallet.eduCoins} ${'edu_coins'.tr}', style: const TextStyle(color: Colors.white, fontSize: 18)),
                     ],
                   ),
                 ],
@@ -48,17 +48,17 @@ class WalletView extends GetView<WalletController> {
             // Actions
             Row(
               children: [
-                Expanded(child: _ActionButton(icon: Icons.add, label: 'شحن', onTap: () {})),
+                Expanded(child: _ActionButton(icon: Icons.add, label: 'top_up'.tr, onTap: () {})),
                 const SizedBox(width: 16),
-                Expanded(child: _ActionButton(icon: Icons.arrow_upward, label: 'سحب', onTap: () {})),
+                Expanded(child: _ActionButton(icon: Icons.arrow_upward, label: 'withdraw'.tr, onTap: () {})),
                 const SizedBox(width: 16),
-                Expanded(child: _ActionButton(icon: Icons.history, label: 'السجل', onTap: () {})),
+                Expanded(child: _ActionButton(icon: Icons.history, label: 'transactions'.tr, onTap: () {})),
               ],
             ),
             const SizedBox(height: 24),
 
             // Recent transactions
-            const Text('آخر العمليات', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text('transactions'.tr, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 16),
             ...wallet.recentTransactions.take(5).map((tx) => ListTile(
               leading: CircleAvatar(

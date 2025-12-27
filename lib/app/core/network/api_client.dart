@@ -203,12 +203,12 @@ class ApiClient extends GetxService {
       case dio.DioExceptionType.sendTimeout:
       case dio.DioExceptionType.receiveTimeout:
         return TimeoutException(
-          message: 'انتهت مهلة الاتصال. يرجى المحاولة مرة أخرى.',
+          message: 'error_timeout'.tr,
         );
 
       case dio.DioExceptionType.connectionError:
         return NetworkException(
-          message: 'لا يوجد اتصال بالإنترنت. تأكد من اتصالك بالشبكة.',
+          message: 'error_network'.tr,
         );
 
       case dio.DioExceptionType.badResponse:
@@ -216,12 +216,12 @@ class ApiClient extends GetxService {
 
       case dio.DioExceptionType.cancel:
         return RequestCancelledException(
-          message: 'تم إلغاء الطلب.',
+          message: 'request_cancelled'.tr,
         );
 
       default:
         return UnknownException(
-          message: error.message ?? 'حدث خطأ غير متوقع.',
+          message: error.message ?? 'error_general'.tr,
         );
     }
   }
@@ -229,12 +229,12 @@ class ApiClient extends GetxService {
   /// Handle HTTP response errors
   ApiException _handleResponseError(dio.Response? response) {
     if (response == null) {
-      return UnknownException(message: 'استجابة فارغة من الخادم.');
+      return UnknownException(message: 'error_empty_response'.tr);
     }
 
     final statusCode = response.statusCode ?? 0;
     final data = response.data;
-    String message = 'حدث خطأ غير متوقع.';
+    String message = 'error_general'.tr;
 
     if (data is Map<String, dynamic>) {
       message = data['message'] as String? ??
@@ -246,11 +246,11 @@ class ApiClient extends GetxService {
       case 400:
         return BadRequestException(message: message);
       case 401:
-        return UnauthorizedException(message: 'انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.');
+        return UnauthorizedException(message: 'session_expired'.tr);
       case 403:
-        return ForbiddenException(message: 'ليس لديك صلاحية للوصول.');
+        return ForbiddenException(message: 'error_forbidden'.tr);
       case 404:
-        return NotFoundException(message: 'المورد المطلوب غير موجود.');
+        return NotFoundException(message: 'error_not_found'.tr);
       case 409:
         return ConflictException(message: message);
       case 422:
@@ -259,11 +259,11 @@ class ApiClient extends GetxService {
           errors: data is Map ? data['errors'] as Map<String, dynamic>? : null,
         );
       case 429:
-        return TooManyRequestsException(message: 'طلبات كثيرة جداً. حاول لاحقاً.');
+        return TooManyRequestsException(message: 'error_too_many_requests'.tr);
       case 500:
       case 502:
       case 503:
-        return ServerException(message: 'خطأ في الخادم. يرجى المحاولة لاحقاً.');
+        return ServerException(message: 'error_server'.tr);
       default:
         return UnknownException(message: message, statusCode: statusCode);
     }

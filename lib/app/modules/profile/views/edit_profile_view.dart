@@ -10,16 +10,16 @@ class EditProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('تعديل الملف الشخصي')),
+      appBar: AppBar(title: Text('edit_profile'.tr)),
       body: Padding(
         padding: const EdgeInsets.all(AppConstants.paddingM),
         child: Column(
           children: [
-            const TextField(decoration: InputDecoration(labelText: 'الاسم الكامل')),
+            TextField(decoration: InputDecoration(labelText: 'full_name'.tr)),
             const SizedBox(height: 16),
-            const TextField(decoration: InputDecoration(labelText: 'رقم الهاتف')),
+            TextField(decoration: InputDecoration(labelText: 'phone'.tr)),
             const SizedBox(height: 24),
-            CustomButton(text: 'حفظ التغييرات', onPressed: () => Get.back()),
+            CustomButton(text: 'save_changes'.tr, onPressed: () => Get.back()),
           ],
         ),
       ),

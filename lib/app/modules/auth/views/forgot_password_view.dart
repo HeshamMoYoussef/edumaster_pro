@@ -16,7 +16,7 @@ class ForgotPasswordView extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('نسيت كلمة المرور'),
+        title: Text('forgot_password'.tr),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -80,9 +80,9 @@ class ForgotPasswordView extends GetView<AuthController> {
   Widget _buildHeader() {
     return Column(
       children: [
-        const Text(
-          'إعادة تعيين كلمة المرور',
-          style: TextStyle(
+        Text(
+          'reset_password'.tr,
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -90,7 +90,7 @@ class ForgotPasswordView extends GetView<AuthController> {
         ),
         const SizedBox(height: AppConstants.paddingM),
         Text(
-          'أدخل بريدك الإلكتروني وسنرسل لك رمز التحقق لإعادة تعيين كلمة المرور',
+          'forgot_password_description'.tr,
           style: TextStyle(
             fontSize: 16,
             color: AppColors.textSecondary,
@@ -105,21 +105,21 @@ class ForgotPasswordView extends GetView<AuthController> {
   Widget _buildEmailField() {
     return CustomTextField(
       formControlName: 'email',
-      label: 'البريد الإلكتروني',
-      hint: 'أدخل بريدك الإلكتروني',
+      label: 'email'.tr,
+      hint: 'enter_email'.tr,
       prefixIcon: Icons.email_outlined,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.done,
       validationMessages: {
-        'required': (error) => 'البريد الإلكتروني مطلوب',
-        'email': (error) => 'البريد الإلكتروني غير صالح',
+        'required': (error) => 'email_required'.tr,
+        'email': (error) => 'invalid_email'.tr,
       },
     );
   }
 
   Widget _buildSendButton() {
     return Obx(() => CustomButton(
-          text: 'إرسال رمز التحقق',
+          text: 'send_verification_code'.tr,
           onPressed: controller.forgotPassword,
           isLoading: controller.isLoading,
         ));
@@ -130,7 +130,7 @@ class ForgotPasswordView extends GetView<AuthController> {
       child: TextButton.icon(
         onPressed: () => Get.back(),
         icon: const Icon(Icons.arrow_back),
-        label: const Text('العودة لتسجيل الدخول'),
+        label: Text('back_to_login'.tr),
         style: TextButton.styleFrom(
           foregroundColor: AppColors.textSecondary,
         ),

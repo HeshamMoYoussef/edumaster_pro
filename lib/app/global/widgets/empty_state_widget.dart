@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../core/constants/app_constants.dart';
 import '../../core/constants/color_constants.dart';
@@ -113,7 +114,7 @@ class ErrorStateWidget extends StatelessWidget {
             ),
             const SizedBox(height: AppConstants.paddingXL),
             Text(
-              title ?? 'حدث خطأ',
+              title ?? 'error'.tr,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -132,7 +133,7 @@ class ErrorStateWidget extends StatelessWidget {
             if (onRetry != null) ...[
               const SizedBox(height: AppConstants.paddingXL),
               CustomButton(
-                text: 'إعادة المحاولة',
+                text: 'retry'.tr,
                 onPressed: onRetry,
                 icon: Icons.refresh,
                 width: 200,
@@ -157,8 +158,8 @@ class NoNetworkWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ErrorStateWidget(
-      title: 'لا يوجد اتصال',
-      message: 'تحقق من اتصالك بالإنترنت وحاول مرة أخرى',
+      title: 'no_connection'.tr,
+      message: 'check_connection'.tr,
       onRetry: onRetry,
     );
   }

@@ -12,7 +12,7 @@ class NotificationsView extends GetView<NotificationsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الإشعارات'),
+        title: Text('notifications'.tr),
         centerTitle: true,
         actions: [
           PopupMenuButton<String>(
@@ -24,23 +24,23 @@ class NotificationsView extends GetView<NotificationsController> {
               }
             },
             itemBuilder: (context) => [
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'mark_all',
                 child: Row(
                   children: [
-                    Icon(Icons.done_all),
-                    SizedBox(width: 8),
-                    Text('تحديد الكل كمقروء'),
+                    const Icon(Icons.done_all),
+                    const SizedBox(width: 8),
+                    Text('mark_all_read'.tr),
                   ],
                 ),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'clear',
                 child: Row(
                   children: [
-                    Icon(Icons.delete_outline),
-                    SizedBox(width: 8),
-                    Text('مسح الكل'),
+                    const Icon(Icons.delete_outline),
+                    const SizedBox(width: 8),
+                    Text('clear_all'.tr),
                   ],
                 ),
               ),
@@ -65,7 +65,7 @@ class NotificationsView extends GetView<NotificationsController> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'لا توجد إشعارات',
+                  'no_notifications'.tr,
                   style: TextStyle(
                     fontSize: 16,
                     color: AppColors.textSecondary,
@@ -236,10 +236,10 @@ class _NotificationItem extends StatelessWidget {
     final now = DateTime.now();
     final diff = now.difference(time);
 
-    if (diff.inMinutes < 1) return 'الآن';
-    if (diff.inMinutes < 60) return 'منذ ${diff.inMinutes} دقيقة';
-    if (diff.inHours < 24) return 'منذ ${diff.inHours} ساعة';
-    if (diff.inDays < 7) return 'منذ ${diff.inDays} يوم';
+    if (diff.inMinutes < 1) return 'just_now'.tr;
+    if (diff.inMinutes < 60) return '${diff.inMinutes} ${'minutes'.tr} ${'ago'.tr}';
+    if (diff.inHours < 24) return '${diff.inHours} ${'hours'.tr} ${'ago'.tr}';
+    if (diff.inDays < 7) return '${diff.inDays} ${'days'.tr} ${'ago'.tr}';
     return '${time.day}/${time.month}/${time.year}';
   }
 }

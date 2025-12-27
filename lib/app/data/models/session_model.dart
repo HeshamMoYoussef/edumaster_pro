@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'teacher_model.dart';
 import 'user_model.dart';
 
@@ -169,14 +170,14 @@ class SessionModel {
   /// Get formatted duration
   String get formattedDuration {
     if (durationMinutes < 60) {
-      return '$durationMinutes دقيقة';
+      return '$durationMinutes ${'minute'.tr}';
     }
     final hours = durationMinutes ~/ 60;
     final minutes = durationMinutes % 60;
     if (minutes == 0) {
-      return '$hours ${hours == 1 ? 'ساعة' : 'ساعات'}';
+      return '$hours ${hours == 1 ? 'hour'.tr : 'hours'.tr}';
     }
-    return '$hours ساعة و $minutes دقيقة';
+    return '$hours ${'hour'.tr} ${'and'.tr} $minutes ${'minute'.tr}';
   }
 
   /// Check if session can be joined
@@ -229,17 +230,19 @@ class SessionModel {
 
 /// Session type enum
 enum SessionType {
-  oneOnOne('one_on_one', 'فردية'),
-  group('group', 'جماعية'),
-  workshop('workshop', 'ورشة عمل'),
-  mentorship('mentorship', 'إرشاد'),
-  instantHelp('instant_help', 'مساعدة فورية'),
-  instant('instant', 'فورية'),
-  trial('trial', 'تجريبية');
+  oneOnOne('one_on_one', 'session_type_one_on_one'),
+  group('group', 'session_type_group'),
+  workshop('workshop', 'session_type_workshop'),
+  mentorship('mentorship', 'session_type_mentorship'),
+  instantHelp('instant_help', 'session_type_instant_help'),
+  instant('instant', 'session_type_instant'),
+  trial('trial', 'session_type_trial');
 
   final String value;
-  final String label;
-  const SessionType(this.value, this.label);
+  final String labelKey;
+  const SessionType(this.value, this.labelKey);
+
+  String get label => labelKey.tr;
 
   static SessionType fromString(String value) {
     return SessionType.values.firstWhere(
@@ -251,18 +254,20 @@ enum SessionType {
 
 /// Session status enum
 enum SessionStatus {
-  pending('pending', 'قيد الانتظار'),
-  scheduled('scheduled', 'مجدولة'),
-  confirmed('confirmed', 'مؤكدة'),
-  rescheduled('rescheduled', 'معاد جدولتها'),
-  inProgress('in_progress', 'جارية'),
-  completed('completed', 'مكتملة'),
-  cancelled('cancelled', 'ملغاة'),
-  noShow('no_show', 'لم يحضر');
+  pending('pending', 'status_pending'),
+  scheduled('scheduled', 'status_scheduled'),
+  confirmed('confirmed', 'status_confirmed'),
+  rescheduled('rescheduled', 'status_rescheduled'),
+  inProgress('in_progress', 'status_in_progress'),
+  completed('completed', 'status_completed'),
+  cancelled('cancelled', 'status_cancelled'),
+  noShow('no_show', 'status_no_show');
 
   final String value;
-  final String label;
-  const SessionStatus(this.value, this.label);
+  final String labelKey;
+  const SessionStatus(this.value, this.labelKey);
+
+  String get label => labelKey.tr;
 
   static SessionStatus fromString(String value) {
     return SessionStatus.values.firstWhere(

@@ -6,17 +6,20 @@ import '../../../routes/app_routes.dart';
 
 /// Onboarding page data
 class OnboardingPage {
-  final String title;
-  final String description;
+  final String titleKey;
+  final String descriptionKey;
   final IconData icon;
   final Color color;
 
   const OnboardingPage({
-    required this.title,
-    required this.description,
+    required this.titleKey,
+    required this.descriptionKey,
     required this.icon,
     required this.color,
   });
+
+  String get title => titleKey.tr;
+  String get description => descriptionKey.tr;
 }
 
 /// Onboarding controller
@@ -30,30 +33,26 @@ class OnboardingController extends GetxController {
 
   final pages = <OnboardingPage>[
     OnboardingPage(
-      title: 'تعلم بذكاء',
-      description:
-          'استفد من الذكاء الاصطناعي لتخصيص تجربة تعلمك وتحقيق أهدافك بشكل أسرع',
+      titleKey: 'onboarding_learn_smart',
+      descriptionKey: 'onboarding_learn_smart_desc',
       icon: Icons.psychology,
       color: const Color(0xFF7C3AED),
     ),
     OnboardingPage(
-      title: 'معلمون متميزون',
-      description:
-          'تواصل مع أفضل المعلمين في مختلف المجالات واحجز جلسات خاصة مباشرة',
+      titleKey: 'onboarding_great_teachers',
+      descriptionKey: 'onboarding_great_teachers_desc',
       icon: Icons.people,
       color: const Color(0xFF10B981),
     ),
     OnboardingPage(
-      title: 'كورسات متنوعة',
-      description:
-          'مئات الكورسات في مختلف المواد الدراسية والمهارات العملية',
+      titleKey: 'onboarding_diverse_courses',
+      descriptionKey: 'onboarding_diverse_courses_desc',
       icon: Icons.menu_book,
       color: const Color(0xFF3B82F6),
     ),
     OnboardingPage(
-      title: 'إنجازات ومكافآت',
-      description:
-          'اجمع النقاط والشارات وتنافس مع الآخرين على لوحة المتصدرين',
+      titleKey: 'onboarding_achievements',
+      descriptionKey: 'onboarding_achievements_desc',
       icon: Icons.emoji_events,
       color: const Color(0xFFF59E0B),
     ),

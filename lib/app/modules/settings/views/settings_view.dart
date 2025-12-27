@@ -14,46 +14,46 @@ class SettingsView extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('الإعدادات'), centerTitle: true),
+      appBar: AppBar(title: Text('settings'.tr), centerTitle: true),
       body: ListView(
         padding: const EdgeInsets.all(AppConstants.paddingM),
         children: [
-          _buildSection('المظهر', [
+          _buildSection('theme'.tr, [
             Obx(() => ListTile(
               leading: Icon(controller.themeController.themeModeIcon),
-              title: const Text('الوضع'),
+              title: Text('theme'.tr),
               subtitle: Text(controller.themeController.themeModeName),
               onTap: () => controller.themeController.toggleTheme(),
             )),
           ]),
-          _buildSection('اللغة', [
+          _buildSection('language'.tr, [
             Obx(() => ListTile(
               leading: Text(controller.localeController.localeFlag, style: const TextStyle(fontSize: 24)),
-              title: const Text('اللغة'),
+              title: Text('language'.tr),
               subtitle: Text(controller.localeController.localeName),
               onTap: () => controller.localeController.toggleLocale(),
             )),
           ]),
-          _buildSection('الحساب', [
-            ListTile(leading: const Icon(Icons.lock), title: const Text('تغيير كلمة المرور'), onTap: () {}),
+          _buildSection('profile'.tr, [
+            ListTile(leading: const Icon(Icons.lock), title: Text('reset_password'.tr), onTap: () {}),
             ListTile(
               leading: const Icon(Icons.notifications),
-              title: const Text('إعدادات الإشعارات'),
+              title: Text('notification_settings'.tr),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => _showNotificationSettings(context),
             ),
-            ListTile(leading: const Icon(Icons.privacy_tip), title: const Text('الخصوصية'), onTap: () {}),
+            ListTile(leading: const Icon(Icons.privacy_tip), title: Text('privacy'.tr), onTap: () {}),
           ]),
-          _buildSection('حول', [
-            ListTile(leading: const Icon(Icons.info), title: const Text('عن التطبيق'), subtitle: const Text('الإصدار 1.0.0')),
-            ListTile(leading: const Icon(Icons.article), title: const Text('الشروط والأحكام'), onTap: () {}),
-            ListTile(leading: const Icon(Icons.shield), title: const Text('سياسة الخصوصية'), onTap: () {}),
+          _buildSection('about'.tr, [
+            ListTile(leading: const Icon(Icons.info), title: Text('about_app'.tr), subtitle: Text('${'version'.tr} 1.0.0')),
+            ListTile(leading: const Icon(Icons.article), title: Text('terms_and_conditions'.tr), onTap: () {}),
+            ListTile(leading: const Icon(Icons.shield), title: Text('privacy_policy'.tr), onTap: () {}),
           ]),
-          // تسجيل الخروج
+          // Logout
           Card(
             child: ListTile(
               leading: Icon(Icons.logout, color: AppColors.error),
-              title: Text('تسجيل الخروج', style: TextStyle(color: AppColors.error)),
+              title: Text('logout'.tr, style: TextStyle(color: AppColors.error)),
               onTap: controller.logout,
             ),
           ),
@@ -97,9 +97,9 @@ class SettingsView extends GetView<SettingsController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'إعدادات تذكيرات الجلسات',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Text(
+                    'session_reminders'.tr,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
                     icon: const Icon(Icons.close),
@@ -109,10 +109,10 @@ class SettingsView extends GetView<SettingsController> {
               ),
               const Divider(),
 
-              // تفعيل/تعطيل التذكيرات
+              // Enable/Disable reminders
               Obx(() => SwitchListTile(
-                title: const Text('تفعيل التذكيرات'),
-                subtitle: const Text('استلام إشعارات قبل موعد الجلسة'),
+                title: Text('push_notifications'.tr),
+                subtitle: Text('session_reminders'.tr),
                 value: settings.value.enabled,
                 onChanged: (value) {
                   settings.value = settings.value.copyWith(enabled: value);
@@ -125,12 +125,12 @@ class SettingsView extends GetView<SettingsController> {
               )),
 
               const SizedBox(height: 8),
-              const Text('أوقات التذكير:', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('${'select_time'.tr}:', style: const TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
 
-              // تذكير قبل 24 ساعة
+              // Reminder 24 hours before
               Obx(() => CheckboxListTile(
-                title: const Text('قبل 24 ساعة'),
+                title: Text('reminder_24h'.tr),
                 value: settings.value.remind24Hours,
                 enabled: settings.value.enabled,
                 onChanged: settings.value.enabled ? (value) {
@@ -139,9 +139,9 @@ class SettingsView extends GetView<SettingsController> {
                 } : null,
               )),
 
-              // تذكير قبل ساعة
+              // Reminder 1 hour before
               Obx(() => CheckboxListTile(
-                title: const Text('قبل ساعة'),
+                title: Text('reminder_1h'.tr),
                 value: settings.value.remind1Hour,
                 enabled: settings.value.enabled,
                 onChanged: settings.value.enabled ? (value) {
@@ -150,9 +150,9 @@ class SettingsView extends GetView<SettingsController> {
                 } : null,
               )),
 
-              // تذكير قبل 15 دقيقة
+              // Reminder 15 minutes before
               Obx(() => CheckboxListTile(
-                title: const Text('قبل 15 دقيقة'),
+                title: Text('reminder_15m'.tr),
                 value: settings.value.remind15Minutes,
                 enabled: settings.value.enabled,
                 onChanged: settings.value.enabled ? (value) {
@@ -161,9 +161,9 @@ class SettingsView extends GetView<SettingsController> {
                 } : null,
               )),
 
-              // تذكير قبل 5 دقائق
+              // Reminder 5 minutes before
               Obx(() => CheckboxListTile(
-                title: const Text('قبل 5 دقائق'),
+                title: Text('reminder_5m'.tr),
                 value: settings.value.remind5Minutes,
                 enabled: settings.value.enabled,
                 onChanged: settings.value.enabled ? (value) {
@@ -172,9 +172,9 @@ class SettingsView extends GetView<SettingsController> {
                 } : null,
               )),
 
-              // تذكير عند بدء الجلسة
+              // Reminder at session start
               Obx(() => CheckboxListTile(
-                title: const Text('عند بدء الجلسة'),
+                title: Text('reminder_start'.tr),
                 value: settings.value.remindAtStart,
                 enabled: settings.value.enabled,
                 onChanged: settings.value.enabled ? (value) {
@@ -185,7 +185,7 @@ class SettingsView extends GetView<SettingsController> {
 
               const Divider(),
 
-              // التحقق من صلاحية الإنذارات
+              // Check alarm permissions
               FutureBuilder<bool>(
                 future: NotificationService.to.canScheduleExactAlarms(),
                 builder: (context, snapshot) {
@@ -211,16 +211,16 @@ class SettingsView extends GetView<SettingsController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                canSchedule ? 'صلاحية الإنذارات مفعّلة ✓' : 'صلاحية الإنذارات غير مفعّلة!',
+                                canSchedule ? '${'success'.tr} ✓' : '${'warning'.tr}!',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: canSchedule ? Colors.green : Colors.red,
                                 ),
                               ),
                               if (!canSchedule)
-                                const Text(
-                                  'يجب تفعيلها من إعدادات الجهاز للإشعارات المجدولة',
-                                  style: TextStyle(fontSize: 12),
+                                Text(
+                                  'feature_not_available'.tr,
+                                  style: const TextStyle(fontSize: 12),
                                 ),
                             ],
                           ),
@@ -228,27 +228,26 @@ class SettingsView extends GetView<SettingsController> {
                         if (!canSchedule && Platform.isAndroid)
                           TextButton(
                             onPressed: () async {
-                              // طلب الصلاحية مباشرة
                               final granted = await NotificationService.to.requestPermissions();
                               if (granted) {
                                 Get.snackbar(
-                                  'تم',
-                                  'تم تفعيل صلاحية الإنذارات',
+                                  'done'.tr,
+                                  'success'.tr,
                                   snackPosition: SnackPosition.BOTTOM,
                                   backgroundColor: Colors.green,
                                   colorText: Colors.white,
                                 );
                               } else {
                                 Get.snackbar(
-                                  'تنبيه',
-                                  'يرجى تفعيل صلاحية الإنذارات من إعدادات الجهاز',
+                                  'warning'.tr,
+                                  'try_again'.tr,
                                   snackPosition: SnackPosition.BOTTOM,
                                   backgroundColor: Colors.orange,
                                   colorText: Colors.white,
                                 );
                               }
                             },
-                            child: const Text('تفعيل الصلاحية'),
+                            child: Text('confirm'.tr),
                           ),
                       ],
                     ),
@@ -258,21 +257,21 @@ class SettingsView extends GetView<SettingsController> {
 
               const SizedBox(height: 16),
 
-              // أزرار اختبار الإشعارات
-              const Text('اختبار الإشعارات:', style: TextStyle(fontWeight: FontWeight.bold)),
+              // Test notifications buttons
+              Text('${'test_notification'.tr}:', style: const TextStyle(fontWeight: FontWeight.bold)),
               const SizedBox(height: 8),
 
-              // إشعار فوري
+              // Immediate notification
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(
                   icon: const Icon(Icons.notifications_active),
-                  label: const Text('إشعار فوري'),
+                  label: Text('test_notification'.tr),
                   onPressed: () async {
                     await NotificationService.to.testImmediateNotification();
                     Get.snackbar(
-                      'تم',
-                      'تم إرسال إشعار فوري',
+                      'done'.tr,
+                      'success'.tr,
                       snackPosition: SnackPosition.BOTTOM,
                     );
                   },
@@ -281,12 +280,12 @@ class SettingsView extends GetView<SettingsController> {
 
               const SizedBox(height: 8),
 
-              // إشعار مجدول بعد 10 ثواني
+              // Scheduled notification (10 seconds)
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.schedule),
-                  label: const Text('إشعار مجدول (10 ثواني)'),
+                  label: Text('test_notification'.tr),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orange,
                     foregroundColor: Colors.white,
@@ -294,8 +293,8 @@ class SettingsView extends GetView<SettingsController> {
                   onPressed: () async {
                     await NotificationService.to.testQuickScheduledNotification();
                     Get.snackbar(
-                      'تم الجدولة',
-                      'سيظهر الإشعار بعد 10 ثواني - انتظر!',
+                      'done'.tr,
+                      'success'.tr,
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 10),
                       backgroundColor: Colors.orange,
@@ -307,17 +306,17 @@ class SettingsView extends GetView<SettingsController> {
 
               const SizedBox(height: 8),
 
-              // إشعار مجدول بعد 30 ثانية
+              // Scheduled notification (30 seconds)
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(
                   icon: const Icon(Icons.schedule),
-                  label: const Text('إشعار مجدول (30 ثانية)'),
+                  label: Text('test_notification'.tr),
                   onPressed: () async {
                     await NotificationService.to.testScheduledNotification();
                     Get.snackbar(
-                      'تم الجدولة',
-                      'سيظهر الإشعار بعد 30 ثانية',
+                      'done'.tr,
+                      'success'.tr,
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 5),
                     );
@@ -327,17 +326,17 @@ class SettingsView extends GetView<SettingsController> {
 
               const SizedBox(height: 8),
 
-              // عرض الإشعارات المعلقة
+              // Show pending notifications
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(
                   icon: const Icon(Icons.list),
-                  label: const Text('عرض الإشعارات المعلقة'),
+                  label: Text('notifications'.tr),
                   onPressed: () async {
                     final pending = await NotificationService.to.getPendingNotifications();
                     Get.snackbar(
-                      'الإشعارات المعلقة',
-                      'عدد الإشعارات المجدولة: ${pending.length}',
+                      'notifications'.tr,
+                      '${pending.length}',
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 5),
                     );

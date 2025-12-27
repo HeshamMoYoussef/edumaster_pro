@@ -15,7 +15,7 @@ class OtpView extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('التحقق'),
+        title: Text('verification'.tr),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -79,9 +79,9 @@ class OtpView extends GetView<AuthController> {
   Widget _buildHeader() {
     return Column(
       children: [
-        const Text(
-          'أدخل رمز التحقق',
-          style: TextStyle(
+        Text(
+          'enter_otp'.tr,
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
@@ -89,7 +89,7 @@ class OtpView extends GetView<AuthController> {
         ),
         const SizedBox(height: AppConstants.paddingM),
         Text(
-          'تم إرسال رمز التحقق إلى',
+          'verification_code_sent'.tr,
           style: TextStyle(
             fontSize: 16,
             color: AppColors.textSecondary,
@@ -141,15 +141,15 @@ class OtpView extends GetView<AuthController> {
         ),
       ),
       validationMessages: {
-        'required': (error) => 'رمز التحقق مطلوب',
-        'minLength': (error) => 'رمز التحقق يجب أن يكون 4-6 أرقام',
+        'required': (error) => 'otp_required'.tr,
+        'minLength': (error) => 'otp_length'.tr,
       },
     );
   }
 
   Widget _buildVerifyButton() {
     return Obx(() => CustomButton(
-          text: 'تحقق',
+          text: 'verify'.tr,
           onPressed: controller.verifyOtp,
           isLoading: controller.isLoading,
         ));
@@ -159,7 +159,7 @@ class OtpView extends GetView<AuthController> {
     return Column(
       children: [
         Text(
-          'لم تستلم الرمز؟',
+          'didnt_receive_code'.tr,
           style: TextStyle(
             color: AppColors.textSecondary,
           ),
@@ -168,7 +168,7 @@ class OtpView extends GetView<AuthController> {
         Obx(() => TextButton(
               onPressed: controller.isLoading ? null : controller.resendOtp,
               child: Text(
-                'إعادة الإرسال',
+                'resend_otp'.tr,
                 style: TextStyle(
                   color: AppColors.primary,
                   fontWeight: FontWeight.bold,

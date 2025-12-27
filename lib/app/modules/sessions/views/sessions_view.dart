@@ -14,7 +14,7 @@ class SessionsView extends GetView<SessionsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('جلساتي'),
+        title: Text('my_sessions'.tr),
         centerTitle: true,
       ),
       body: Obx(() {
@@ -23,11 +23,11 @@ class SessionsView extends GetView<SessionsController> {
         }
 
         if (controller.sessions.isEmpty) {
-          return const EmptyStateWidget(
+          return EmptyStateWidget(
             icon: Icons.calendar_today_outlined,
-            title: 'لا توجد جلسات',
-            description: 'احجز جلسة مع أحد المعلمين للبدء',
-            buttonText: 'تصفح المعلمين',
+            title: 'no_sessions'.tr,
+            description: 'book_session_to_start'.tr,
+            buttonText: 'browse_teachers'.tr,
           );
         }
 

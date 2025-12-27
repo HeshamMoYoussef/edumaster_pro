@@ -19,7 +19,7 @@ class AiTutorController extends GetxController {
 
     // Simulate AI response
     await Future.delayed(const Duration(seconds: 1));
-    _messages.add({'role': 'assistant', 'content': 'هذا رد تجريبي من المساعد الذكي. سيتم ربط API الذكاء الاصطناعي لاحقاً.'});
+    _messages.add({'role': 'assistant', 'content': 'ai_demo_response'.tr});
     _isLoading.value = false;
   }
 

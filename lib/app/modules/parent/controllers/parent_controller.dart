@@ -34,7 +34,7 @@ class ParentController extends GetxController {
   final _notifications = <Map<String, dynamic>>[].obs;
   List<Map<String, dynamic>> get notifications => _notifications;
 
-  String get parentName => _appController.currentUser?.fullName ?? 'ولي الأمر';
+  String get parentName => _appController.currentUser?.fullName ?? 'parent'.tr;
 
   @override
   void onInit() {
@@ -95,17 +95,17 @@ class ParentController extends GetxController {
     final codeController = TextEditingController();
     Get.dialog(
       AlertDialog(
-        title: const Text('ربط طفل جديد'),
+        title: Text('link_new_child'.tr),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('أدخل رمز الربط الخاص بالطفل'),
+            Text('enter_child_link_code'.tr),
             const SizedBox(height: 16),
             TextField(
               controller: codeController,
-              decoration: const InputDecoration(
-                hintText: 'رمز الربط',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                hintText: 'link_code'.tr,
+                border: const OutlineInputBorder(),
               ),
             ),
           ],
@@ -113,7 +113,7 @@ class ParentController extends GetxController {
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: const Text('إلغاء'),
+            child: Text('cancel'.tr),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -121,12 +121,12 @@ class ParentController extends GetxController {
                 await _userRepo.linkChild(codeController.text);
                 await loadChildren();
                 Get.back();
-                Get.snackbar('نجاح', 'تم ربط الطفل بنجاح');
+                Get.snackbar('success'.tr, 'child_linked_success'.tr);
               } catch (e) {
-                Get.snackbar('خطأ', 'فشل ربط الطفل');
+                Get.snackbar('error'.tr, 'child_link_failed'.tr);
               }
             },
-            child: const Text('ربط'),
+            child: Text('link'.tr),
           ),
         ],
       ),
@@ -134,7 +134,7 @@ class ParentController extends GetxController {
   }
 
   void setStudyLimit(String childId, int minutes) {
-    Get.snackbar('تم', 'تم تحديد وقت الدراسة بـ $minutes دقيقة');
+    Get.snackbar('done'.tr, 'study_limit_set'.trParams({'minutes': minutes.toString()}));
   }
 
   void viewSessionDetails(String sessionId) {

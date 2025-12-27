@@ -53,8 +53,8 @@ class LoginView extends GetView<AuthController> {
                 const SizedBox(height: AppConstants.paddingL),
 
                 // ========================================
-                // أزرار الدخول السريع للاختبار
-                // TODO: إزالتها في الإنتاج
+                // Quick login buttons for testing
+                // TODO: Remove in production
                 // ========================================
                 _buildQuickLoginButtons(),
 
@@ -97,16 +97,16 @@ class LoginView extends GetView<AuthController> {
           ),
         ),
         const SizedBox(height: AppConstants.paddingL),
-        const Text(
-          'مرحباً بعودتك',
-          style: TextStyle(
+        Text(
+          'welcome_back'.tr,
+          style: const TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
           ),
         ),
         const SizedBox(height: AppConstants.paddingS),
         Text(
-          'سجل دخولك للمتابعة',
+          'login_subtitle'.tr,
           style: TextStyle(
             fontSize: 16,
             color: AppColors.textSecondary,
@@ -119,14 +119,14 @@ class LoginView extends GetView<AuthController> {
   Widget _buildEmailField() {
     return CustomTextField(
       formControlName: 'email',
-      label: 'البريد الإلكتروني',
-      hint: 'أدخل بريدك الإلكتروني',
+      label: 'email'.tr,
+      hint: 'enter_email'.tr,
       prefixIcon: Icons.email_outlined,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       validationMessages: {
-        'required': (error) => 'البريد الإلكتروني مطلوب',
-        'email': (error) => 'البريد الإلكتروني غير صالح',
+        'required': (error) => 'email_required'.tr,
+        'email': (error) => 'invalid_email'.tr,
       },
     );
   }
@@ -134,8 +134,8 @@ class LoginView extends GetView<AuthController> {
   Widget _buildPasswordField() {
     return Obx(() => CustomTextField(
           formControlName: 'password',
-          label: 'كلمة المرور',
-          hint: 'أدخل كلمة المرور',
+          label: 'password'.tr,
+          hint: 'enter_password'.tr,
           prefixIcon: Icons.lock_outlined,
           obscureText: controller.obscurePassword,
           suffixIcon: IconButton(
@@ -148,8 +148,8 @@ class LoginView extends GetView<AuthController> {
           ),
           textInputAction: TextInputAction.done,
           validationMessages: {
-            'required': (error) => 'كلمة المرور مطلوبة',
-            'minLength': (error) => 'كلمة المرور يجب أن تكون 8 أحرف على الأقل',
+            'required': (error) => 'password_required'.tr,
+            'minLength': (error) => 'password_too_short'.tr,
           },
         ));
   }
@@ -167,7 +167,7 @@ class LoginView extends GetView<AuthController> {
             ),
             const SizedBox(width: 8),
             Text(
-              'تذكرني',
+              'remember_me'.tr,
               style: TextStyle(
                 color: AppColors.textSecondary,
               ),
@@ -179,7 +179,7 @@ class LoginView extends GetView<AuthController> {
         TextButton(
           onPressed: () => Get.toNamed(Routes.forgotPassword),
           child: Text(
-            'نسيت كلمة المرور؟',
+            'forgot_password'.tr,
             style: TextStyle(
               color: AppColors.primary,
               fontWeight: FontWeight.w600,
@@ -192,14 +192,14 @@ class LoginView extends GetView<AuthController> {
 
   Widget _buildLoginButton() {
     return Obx(() => CustomButton(
-          text: 'تسجيل الدخول',
+          text: 'login'.tr,
           onPressed: controller.login,
           isLoading: controller.isLoading,
         ));
   }
 
-  /// أزرار الدخول السريع للاختبار
-  /// TODO: إزالة هذا القسم بالكامل في الإنتاج
+  /// Quick login buttons for testing
+  /// TODO: Remove this section in production
   Widget _buildQuickLoginButtons() {
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingM),
@@ -212,14 +212,14 @@ class LoginView extends GetView<AuthController> {
       ),
       child: Column(
         children: [
-          // عنوان القسم
+          // Section title
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.developer_mode, color: Colors.amber[700], size: 18),
               const SizedBox(width: 8),
               Text(
-                'دخول سريع للاختبار',
+                'Quick Login (Dev)',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -230,13 +230,13 @@ class LoginView extends GetView<AuthController> {
           ),
           const SizedBox(height: AppConstants.paddingM),
 
-          // الأزرار الثلاثة
+          // Three buttons
           Row(
             children: [
-              // زر الطالب
+              // Student button
               Expanded(
                 child: _QuickLoginButton(
-                  label: 'طالب',
+                  label: 'student'.tr,
                   icon: Icons.school,
                   color: AppColors.primary,
                   onPressed: controller.quickLoginAsStudent,
@@ -244,10 +244,10 @@ class LoginView extends GetView<AuthController> {
               ),
               const SizedBox(width: 8),
 
-              // زر ولي الأمر
+              // Parent button
               Expanded(
                 child: _QuickLoginButton(
-                  label: 'ولي أمر',
+                  label: 'Parent',
                   icon: Icons.family_restroom,
                   color: Colors.green,
                   onPressed: controller.quickLoginAsParent,
@@ -255,10 +255,10 @@ class LoginView extends GetView<AuthController> {
               ),
               const SizedBox(width: 8),
 
-              // زر المعلم
+              // Teacher button
               Expanded(
                 child: _QuickLoginButton(
-                  label: 'معلم',
+                  label: 'the_teacher'.tr,
                   icon: Icons.person_pin,
                   color: Colors.purple,
                   onPressed: controller.quickLoginAsTeacher,
@@ -282,7 +282,7 @@ class LoginView extends GetView<AuthController> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
           child: Text(
-            'أو',
+            'or'.tr,
             style: TextStyle(
               color: AppColors.textSecondary,
             ),
@@ -300,7 +300,7 @@ class LoginView extends GetView<AuthController> {
   Widget _buildSocialButtons() {
     return Column(
       children: [
-        // Google - مع أيقونة SVG
+        // Google - with SVG icon
         SizedBox(
           width: double.infinity,
           height: AppConstants.buttonHeight,
@@ -318,16 +318,16 @@ class LoginView extends GetView<AuthController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // أيقونة Google SVG الرسمية
+                // Official Google SVG icon
                 SvgPicture.asset(
                   'assets/icons/google.svg',
                   width: 24,
                   height: 24,
                 ),
                 const SizedBox(width: 12),
-                const Text(
-                  'المتابعة مع Google',
-                  style: TextStyle(
+                Text(
+                  '${'or_continue_with'.tr} Google',
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
@@ -339,7 +339,7 @@ class LoginView extends GetView<AuthController> {
         ),
         const SizedBox(height: AppConstants.paddingM),
 
-        // Apple - مع أيقونة SVG
+        // Apple - with SVG icon
         SizedBox(
           width: double.infinity,
           height: AppConstants.buttonHeight,
@@ -355,7 +355,7 @@ class LoginView extends GetView<AuthController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // أيقونة Apple SVG الرسمية
+                // Official Apple SVG icon
                 SvgPicture.asset(
                   'assets/icons/apple.svg',
                   width: 24,
@@ -366,9 +366,9 @@ class LoginView extends GetView<AuthController> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Text(
-                  'المتابعة مع Apple',
-                  style: TextStyle(
+                Text(
+                  '${'or_continue_with'.tr} Apple',
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
@@ -387,7 +387,7 @@ class LoginView extends GetView<AuthController> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'ليس لديك حساب؟',
+          'dont_have_account'.tr,
           style: TextStyle(
             color: AppColors.textSecondary,
           ),
@@ -395,7 +395,7 @@ class LoginView extends GetView<AuthController> {
         TextButton(
           onPressed: () => Get.toNamed(Routes.register),
           child: Text(
-            'سجل الآن',
+            'register'.tr,
             style: TextStyle(
               color: AppColors.primary,
               fontWeight: FontWeight.bold,
@@ -407,8 +407,8 @@ class LoginView extends GetView<AuthController> {
   }
 }
 
-/// زر الدخول السريع للاختبار
-/// TODO: إزالته في الإنتاج
+/// Quick login button for testing
+/// TODO: Remove in production
 class _QuickLoginButton extends StatelessWidget {
   final String label;
   final IconData icon;

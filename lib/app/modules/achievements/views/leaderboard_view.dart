@@ -10,7 +10,7 @@ class LeaderboardView extends GetView<AchievementsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('لوحة المتصدرين'), centerTitle: true),
+      appBar: AppBar(title: Text('leaderboard'.tr), centerTitle: true),
       body: Obx(() => ListView.builder(
         padding: const EdgeInsets.all(AppConstants.paddingM),
         itemCount: controller.leaderboard.length,
@@ -22,8 +22,8 @@ class LeaderboardView extends GetView<AchievementsController> {
               child: Text('${entry.rank}', style: TextStyle(color: index < 3 ? Colors.white : AppColors.primary, fontWeight: FontWeight.bold)),
             ),
             title: Text(entry.userName),
-            subtitle: Text('المستوى ${entry.level}'),
-            trailing: Text('${entry.points} نقطة', style: const TextStyle(fontWeight: FontWeight.bold)),
+            subtitle: Text('${'level'.tr} ${entry.level}'),
+            trailing: Text('${entry.points} ${'points'.tr}', style: const TextStyle(fontWeight: FontWeight.bold)),
           );
         },
       )),

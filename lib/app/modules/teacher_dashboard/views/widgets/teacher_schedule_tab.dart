@@ -16,13 +16,13 @@ class TeacherScheduleTab extends GetView<TeacherDashboardController> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('الجدول'),
+          title: Text('my_schedule'.tr),
           centerTitle: true,
-          bottom: const TabBar(
+          bottom: TabBar(
             tabs: [
-              Tab(text: 'القادمة'),
-              Tab(text: 'المعلقة'),
-              Tab(text: 'المكتملة'),
+              Tab(text: 'upcoming'.tr),
+              Tab(text: 'pending'.tr),
+              Tab(text: 'completed'.tr),
             ],
           ),
         ),
@@ -40,7 +40,7 @@ class TeacherScheduleTab extends GetView<TeacherDashboardController> {
   Widget _buildUpcomingSessions() {
     return Obx(() {
       if (controller.upcomingSessions.isEmpty) {
-        return _buildEmptyState('لا توجد جلسات قادمة', Icons.event);
+        return _buildEmptyState('no_upcoming_sessions'.tr, Icons.event);
       }
 
       return ListView.builder(
@@ -65,8 +65,8 @@ class TeacherScheduleTab extends GetView<TeacherDashboardController> {
       itemCount: 3,
       itemBuilder: (context, index) {
         return _PendingSessionCard(
-          studentName: ['أحمد محمد', 'سارة علي', 'خالد عمر'][index],
-          subject: ['رياضيات', 'فيزياء', 'كيمياء'][index],
+          studentName: ['Ahmed Mohammed', 'Sara Ali', 'Khalid Omar'][index],
+          subject: ['subject_default_1'.tr, 'subject_default_2'.tr, 'subject_default_3'.tr][index],
           requestedTime: DateTime.now().add(Duration(days: index + 1)),
           duration: [60, 45, 90][index],
           onAccept: () => controller.acceptSession('session_$index'),
@@ -79,7 +79,7 @@ class TeacherScheduleTab extends GetView<TeacherDashboardController> {
   Widget _buildCompletedSessions() {
     return Obx(() {
       if (controller.completedSessions.isEmpty) {
-        return _buildEmptyState('لا توجد جلسات مكتملة', Icons.check_circle);
+        return _buildEmptyState('no_completed_sessions'.tr, Icons.check_circle);
       }
 
       return ListView.builder(
@@ -141,7 +141,7 @@ class _SessionCard extends StatelessWidget {
                 CircleAvatar(
                   backgroundColor: AppColors.primary.withValues(alpha: 0.1),
                   child: Text(
-                    (session.student?.fullName ?? 'ط')[0],
+                    (session.student?.fullName ?? 'student'.tr)[0],
                     style: TextStyle(
                       color: AppColors.primary,
                       fontWeight: FontWeight.bold,
@@ -154,14 +154,14 @@ class _SessionCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        session.student?.fullName ?? 'طالب',
+                        session.student?.fullName ?? 'student'.tr,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                       ),
                       Text(
-                        session.subject ?? 'جلسة',
+                        session.subject ?? 'session'.tr,
                         style: TextStyle(
                           color: AppColors.textSecondary,
                         ),
@@ -187,7 +187,7 @@ class _SessionCard extends StatelessWidget {
                 const SizedBox(width: 16),
                 _InfoItem(
                   icon: Icons.timer,
-                  text: '${session.durationMinutes} دقيقة',
+                  text: '${session.durationMinutes} ${'minute'.tr}',
                 ),
               ],
             ),
@@ -198,7 +198,7 @@ class _SessionCard extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: onStart,
                   icon: const Icon(Icons.video_call),
-                  label: const Text('ابدأ الجلسة'),
+                  label: Text('start_session'.tr),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.success,
                   ),
@@ -311,7 +311,7 @@ class _PendingSessionCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    'بانتظار الموافقة',
+                    'awaiting_approval'.tr,
                     style: TextStyle(
                       color: AppColors.warning,
                       fontSize: 12,
@@ -336,7 +336,7 @@ class _PendingSessionCard extends StatelessWidget {
                 const SizedBox(width: 16),
                 _InfoItem(
                   icon: Icons.timer,
-                  text: '$duration دقيقة',
+                  text: '$duration ${'minute'.tr}',
                 ),
               ],
             ),
@@ -350,7 +350,7 @@ class _PendingSessionCard extends StatelessWidget {
                       foregroundColor: AppColors.error,
                       side: BorderSide(color: AppColors.error),
                     ),
-                    child: const Text('رفض'),
+                    child: Text('reject'.tr),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -360,7 +360,7 @@ class _PendingSessionCard extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.success,
                     ),
-                    child: const Text('قبول'),
+                    child: Text('accept'.tr),
                   ),
                 ),
               ],

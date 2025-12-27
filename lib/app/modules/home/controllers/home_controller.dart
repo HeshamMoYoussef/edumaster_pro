@@ -52,12 +52,12 @@ class HomeController extends GetxController {
   // User greeting
   String get greeting {
     final hour = DateTime.now().hour;
-    if (hour < 12) return 'صباح الخير';
-    if (hour < 17) return 'مساء الخير';
-    return 'مساء الخير';
+    if (hour < 12) return 'good_morning'.tr;
+    if (hour < 17) return 'good_afternoon'.tr;
+    return 'good_evening'.tr;
   }
 
-  String get userName => _appController.currentUser?.fullName ?? 'متعلم';
+  String get userName => _appController.currentUser?.fullName ?? 'student'.tr;
 
   @override
   void onInit() {

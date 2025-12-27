@@ -51,7 +51,7 @@ class OnboardingView extends GetView<OnboardingController> {
           return TextButton(
             onPressed: controller.skipOnboarding,
             child: Text(
-              'تخطي',
+              'skip'.tr,
               style: TextStyle(
                 color: AppColors.textSecondary,
                 fontSize: 16,
@@ -169,7 +169,7 @@ class OnboardingView extends GetView<OnboardingController> {
           ),
         ),
         child: Text(
-          controller.isLastPage ? 'ابدأ الآن' : 'التالي',
+          controller.isLastPage ? 'get_started'.tr : 'next'.tr,
           style: GoogleFonts.cairo(
             fontSize: 18,
             fontWeight: FontWeight.bold,

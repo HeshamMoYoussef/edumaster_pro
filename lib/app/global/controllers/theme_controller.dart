@@ -51,15 +51,15 @@ class ThemeController extends GetxController {
     await setThemeMode(ThemeMode.system);
   }
 
-  /// Get theme mode name in Arabic
+  /// Get theme mode name (localized)
   String get themeModeName {
     switch (_themeMode.value) {
       case ThemeMode.light:
-        return 'فاتح';
+        return 'theme_light'.tr;
       case ThemeMode.dark:
-        return 'داكن';
+        return 'theme_dark'.tr;
       case ThemeMode.system:
-        return 'تلقائي';
+        return 'theme_system'.tr;
     }
   }
 

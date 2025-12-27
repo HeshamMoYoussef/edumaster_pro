@@ -33,14 +33,14 @@ class Helpers {
   /// Format duration in hours and minutes
   static String formatDuration(int minutes) {
     if (minutes < 60) {
-      return '$minutes دقيقة';
+      return '$minutes ${'minute'.tr}';
     }
     final hours = minutes ~/ 60;
     final remainingMinutes = minutes % 60;
     if (remainingMinutes == 0) {
-      return '$hours ${hours == 1 ? 'ساعة' : 'ساعات'}';
+      return '$hours ${hours == 1 ? 'hour'.tr : 'hours'.tr}';
     }
-    return '$hours:${remainingMinutes.toString().padLeft(2, '0')} ساعة';
+    return '$hours:${remainingMinutes.toString().padLeft(2, '0')} ${'hour'.tr}';
   }
 
   /// Format date to readable string
@@ -67,21 +67,21 @@ class Helpers {
 
     if (difference.inDays > 365) {
       final years = (difference.inDays / 365).floor();
-      return 'منذ ${years == 1 ? 'سنة' : '$years سنوات'}';
+      return '${'ago'.tr} ${years == 1 ? 'year'.tr : '$years ${'years'.tr}'}';
     } else if (difference.inDays > 30) {
       final months = (difference.inDays / 30).floor();
-      return 'منذ ${months == 1 ? 'شهر' : '$months أشهر'}';
+      return '${'ago'.tr} ${months == 1 ? 'month'.tr : '$months ${'months'.tr}'}';
     } else if (difference.inDays > 7) {
       final weeks = (difference.inDays / 7).floor();
-      return 'منذ ${weeks == 1 ? 'أسبوع' : '$weeks أسابيع'}';
+      return '${'ago'.tr} ${weeks == 1 ? 'week'.tr : '$weeks ${'weeks'.tr}'}';
     } else if (difference.inDays > 0) {
-      return 'منذ ${difference.inDays == 1 ? 'يوم' : '${difference.inDays} أيام'}';
+      return '${'ago'.tr} ${difference.inDays == 1 ? 'day'.tr : '${difference.inDays} ${'days'.tr}'}';
     } else if (difference.inHours > 0) {
-      return 'منذ ${difference.inHours == 1 ? 'ساعة' : '${difference.inHours} ساعات'}';
+      return '${'ago'.tr} ${difference.inHours == 1 ? 'hour'.tr : '${difference.inHours} ${'hours'.tr}'}';
     } else if (difference.inMinutes > 0) {
-      return 'منذ ${difference.inMinutes == 1 ? 'دقيقة' : '${difference.inMinutes} دقائق'}';
+      return '${'ago'.tr} ${difference.inMinutes == 1 ? 'minute'.tr : '${difference.inMinutes} ${'minutes'.tr}'}';
     } else {
-      return 'الآن';
+      return 'just_now'.tr;
     }
   }
 
@@ -89,11 +89,11 @@ class Helpers {
   static String getGreeting() {
     final hour = DateTime.now().hour;
     if (hour < 12) {
-      return 'صباح الخير';
+      return 'good_morning'.tr;
     } else if (hour < 17) {
-      return 'مساء الخير';
+      return 'good_afternoon'.tr;
     } else {
-      return 'مساء الخير';
+      return 'good_evening'.tr;
     }
   }
 
@@ -165,7 +165,7 @@ class Helpers {
   /// Show success snackbar
   static void showSuccess(String message) {
     Get.snackbar(
-      'نجاح',
+      'success'.tr,
       message,
       backgroundColor: AppColors.success,
       colorText: Colors.white,
@@ -180,7 +180,7 @@ class Helpers {
   /// Show error snackbar
   static void showError(String message) {
     Get.snackbar(
-      'خطأ',
+      'error'.tr,
       message,
       backgroundColor: AppColors.error,
       colorText: Colors.white,
@@ -195,7 +195,7 @@ class Helpers {
   /// Show warning snackbar
   static void showWarning(String message) {
     Get.snackbar(
-      'تنبيه',
+      'warning'.tr,
       message,
       backgroundColor: AppColors.warning,
       colorText: Colors.white,
@@ -210,7 +210,7 @@ class Helpers {
   /// Show info snackbar
   static void showInfo(String message) {
     Get.snackbar(
-      'معلومة',
+      'info'.tr,
       message,
       backgroundColor: AppColors.info,
       colorText: Colors.white,
@@ -265,10 +265,12 @@ class Helpers {
   static Future<bool> showConfirmation({
     required String title,
     required String message,
-    String confirmText = 'تأكيد',
-    String cancelText = 'إلغاء',
+    String? confirmText,
+    String? cancelText,
     bool isDangerous = false,
   }) async {
+    confirmText ??= 'confirm'.tr;
+    cancelText ??= 'cancel'.tr;
     final result = await Get.dialog<bool>(
       AlertDialog(
         title: Text(title),
@@ -297,7 +299,7 @@ class Helpers {
   /// Copy text to clipboard
   static Future<void> copyToClipboard(String text) async {
     // await Clipboard.setData(ClipboardData(text: text));
-    showSuccess('تم النسخ');
+    showSuccess('copied'.tr);
   }
 
   /// Check if device is in dark mode

@@ -1,21 +1,21 @@
 /// ============================================================================
-/// متحكم الجلسة المباشرة (Live Session Controller)
+/// Live Session Controller
 /// ============================================================================
 ///
-/// يدير جميع جوانب الجلسة المباشرة بما في ذلك:
-/// - الاتصال بـ WebRTC للفيديو المضمن داخل التطبيق
-/// - التحكم في الكاميرا والميكروفون
-/// - مشاركة الشاشة
-/// - السبورة التفاعلية
-/// - الدردشة النصية
-/// - إدارة المشاركين
+/// Manages all aspects of live sessions including:
+/// - WebRTC connection for in-app video
+/// - Camera and microphone controls
+/// - Screen sharing
+/// - Interactive whiteboard
+/// - Text chat
+/// - Participant management
 ///
-/// TODO: للإنتاج:
-/// - إضافة Signaling Server للاتصال بين المشاركين
-/// - إضافة التسجيل السحابي
-/// - إضافة الترجمة التلقائية
-/// - إضافة رفع اليد للطلاب
-/// - إضافة غرف جانبية (Breakout Rooms)
+/// TODO: For production:
+/// - Add Signaling Server for participant communication
+/// - Add cloud recording
+/// - Add automatic translation
+/// - Add hand raising for students
+/// - Add Breakout Rooms
 ///
 /// ============================================================================
 
@@ -29,68 +29,68 @@ import '../../../data/models/session_model.dart';
 import '../../../data/repositories/session_repository.dart';
 import '../views/live_session_view.dart';
 
-/// أدوات الرسم المتاحة على السبورة
+/// Available whiteboard drawing tools
 enum DrawingTool {
-  pen,        // قلم عادي
-  brush,      // فرشاة
-  highlighter,// هايلايت
-  eraser,     // ممحاة
-  rectangle,  // مربع
-  circle,     // دائرة
-  line,       // خط
-  arrow,      // سهم
-  text,       // نص
+  pen,        // Regular pen
+  brush,      // Brush
+  highlighter,// Highlighter
+  eraser,     // Eraser
+  rectangle,  // Rectangle
+  circle,     // Circle
+  line,       // Line
+  arrow,      // Arrow
+  text,       // Text
 }
 
-/// متحكم الجلسة المباشرة - يستخدم GetX للتحكم في الحالة
+/// Live Session Controller - Uses GetX for state management
 class LiveSessionController extends GetxController {
   // ========================================
-  // المستودعات والخدمات
+  // Repositories and Services
   // ========================================
   final SessionRepository _sessionRepo = Get.find();
   final WebRTCService _webrtcService = WebRTCService();
 
-  /// للوصول إلى Local Video Renderer من الـ View
+  /// Access Local Video Renderer from View
   RTCVideoRenderer get localRenderer => _webrtcService.localRenderer;
 
-  /// للوصول إلى Remote Video Renderer من الـ View
+  /// Access Remote Video Renderer from View
   RTCVideoRenderer get remoteRenderer => _webrtcService.remoteRenderer;
 
-  /// هل الكاميرا الحقيقية جاهزة؟
+  /// Is the real camera ready?
   final _isCameraReady = false.obs;
   bool get isCameraReady => _isCameraReady.value;
 
   // ========================================
-  // معلومات الجلسة
+  // Session Information
   // ========================================
 
-  /// معرف الجلسة الفريد
+  /// Unique session ID
   final _sessionId = ''.obs;
   String get sessionId => _sessionId.value;
 
-  /// عنوان الجلسة
-  final _sessionTitle = 'جلسة تعليمية'.obs;
-  String get sessionTitle => _sessionTitle.value;
+  /// Session title
+  final _sessionTitle = ''.obs;
+  String get sessionTitle => _sessionTitle.value.isEmpty ? 'educational_session'.tr : _sessionTitle.value;
 
-  /// اسم المشارك الآخر (المعلم أو الطالب)
-  final _remoteName = 'المشارك'.obs;
-  String get remoteName => _remoteName.value;
+  /// Other participant name (teacher or student)
+  final _remoteName = ''.obs;
+  String get remoteName => _remoteName.value.isEmpty ? 'participant'.tr : _remoteName.value;
 
   // ========================================
-  // حالة الاتصال
+  // Connection State
   // ========================================
 
-  /// هل يتم الاتصال حالياً؟
+  /// Is currently connecting?
   final _isConnecting = true.obs;
   bool get isConnecting => _isConnecting.value;
 
-  /// هل الاتصال ناجح؟
+  /// Is connection successful?
   final _isConnected = false.obs;
   bool get isConnected => _isConnected.value;
 
-  /// رسالة حالة الاتصال للعرض
-  final _connectionStatus = 'جاري الاتصال...'.obs;
-  String get connectionStatus => _connectionStatus.value;
+  /// Connection status message for display
+  final _connectionStatus = ''.obs;
+  String get connectionStatus => _connectionStatus.value.isEmpty ? 'connecting'.tr : _connectionStatus.value;
 
   // ========================================
   // مدة الجلسة
@@ -205,46 +205,46 @@ class LiveSessionController extends GetxController {
     _initSessionWithWebRTC(); // الكاميرا الحقيقية داخل التطبيق
   }
 
-  /// تهيئة الجلسة (وضع المحاكاة للتطوير)
+  /// Initialize session (mock mode for development)
   Future<void> _initSession() async {
-    // وضع المحاكاة للتطوير السريع
-    _connectionStatus.value = 'جاري تحميل بيانات الجلسة...';
+    // Mock mode for rapid development
+    _connectionStatus.value = 'loading_session'.tr;
     await Future.delayed(const Duration(milliseconds: 500));
 
-    _connectionStatus.value = 'جاري الاتصال بالخادم...';
+    _connectionStatus.value = 'connecting_server'.tr;
     await Future.delayed(const Duration(milliseconds: 500));
 
-    _connectionStatus.value = 'جاري الانضمام للغرفة...';
+    _connectionStatus.value = 'joining_room'.tr;
     await Future.delayed(const Duration(milliseconds: 500));
 
     _isConnecting.value = false;
     _isConnected.value = true;
-    _sessionTitle.value = 'جلسة رياضيات - التفاضل والتكامل';
-    _remoteName.value = 'أ. سارة أحمد';
+    _sessionTitle.value = 'session_math'.tr;
+    _remoteName.value = 'Sarah Ahmed';
 
     _startDurationTimer();
 
     _chatMessages.add(ChatMessage(
-      senderName: 'النظام',
-      text: 'مرحباً بك في الجلسة! 🎉',
+      senderName: 'system'.tr,
+      text: 'welcome_session'.tr,
       time: DateTime.now(),
       isMe: false,
     ));
   }
 
-  /// تهيئة الجلسة مع WebRTC (الكاميرا الحقيقية داخل التطبيق)
+  /// Initialize session with WebRTC (real camera in-app)
   Future<void> _initSessionWithWebRTC() async {
-    _connectionStatus.value = 'جاري تهيئة الكاميرا...';
+    _connectionStatus.value = 'initializing_camera'.tr;
 
-    // تهيئة WebRTC callbacks
+    // Initialize WebRTC callbacks
     _webrtcService.onLocalStreamReady = () {
       _isCameraReady.value = true;
-      debugPrint('✅ [LiveSession] الكاميرا جاهزة');
+      debugPrint('✅ [LiveSession] Camera ready');
     };
 
     _webrtcService.onError = (error) {
       Get.snackbar(
-        'خطأ',
+        'error'.tr,
         error,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
@@ -252,12 +252,12 @@ class LiveSessionController extends GetxController {
       );
     };
 
-    // تهيئة الـ renderers
+    // Initialize renderers
     await _webrtcService.initialize();
 
-    _connectionStatus.value = 'جاري تشغيل الكاميرا...';
+    _connectionStatus.value = 'starting_camera'.tr;
 
-    // بدء الكاميرا المحلية
+    // Start local camera
     final success = await _webrtcService.startLocalCamera(
       enableVideo: true,
       enableAudio: true,
@@ -266,31 +266,31 @@ class LiveSessionController extends GetxController {
     if (success) {
       _isConnecting.value = false;
       _isConnected.value = true;
-      _sessionTitle.value = 'جلسة رياضيات - التفاضل والتكامل';
-      _remoteName.value = 'أ. سارة أحمد';
+      _sessionTitle.value = 'session_math'.tr;
+      _remoteName.value = 'Sarah Ahmed';
       _isCameraReady.value = true;
 
       _startDurationTimer();
 
       _chatMessages.add(ChatMessage(
-        senderName: 'النظام',
-        text: 'مرحباً بك في الجلسة! الكاميرا تعمل الآن 📹',
+        senderName: 'system'.tr,
+        text: 'welcome_camera_ready'.tr,
         time: DateTime.now(),
         isMe: false,
       ));
     } else {
-      // في حالة فشل الكاميرا، نكمل بدون فيديو
+      // If camera fails, continue without video
       _isConnecting.value = false;
       _isConnected.value = true;
-      _sessionTitle.value = 'جلسة رياضيات - التفاضل والتكامل';
-      _remoteName.value = 'أ. سارة أحمد';
+      _sessionTitle.value = 'session_math'.tr;
+      _remoteName.value = 'Sarah Ahmed';
       _isLocalVideoEnabled.value = false;
 
       _startDurationTimer();
 
       _chatMessages.add(ChatMessage(
-        senderName: 'النظام',
-        text: 'مرحباً بك! (الكاميرا غير متوفرة)',
+        senderName: 'system'.tr,
+        text: 'welcome_no_camera'.tr,
         time: DateTime.now(),
         isMe: false,
       ));
@@ -323,12 +323,12 @@ class LiveSessionController extends GetxController {
     _isLocalVideoEnabled.value = _webrtcService.isCameraEnabled;
   }
 
-  /// تبديل الكاميرا الأمامية/الخلفية
+  /// Switch front/back camera
   Future<void> flipCamera() async {
     await _webrtcService.switchCamera();
     Get.snackbar(
-      'تم',
-      'تم تبديل الكاميرا',
+      'done'.tr,
+      'camera_switched'.tr,
       snackPosition: SnackPosition.TOP,
       backgroundColor: Colors.black54,
       colorText: Colors.white,
@@ -336,30 +336,30 @@ class LiveSessionController extends GetxController {
     );
   }
 
-  /// تبديل مشاركة الشاشة
+  /// Toggle screen sharing
   void toggleScreenShare() {
     _isScreenSharing.value = !_isScreenSharing.value;
 
     if (_isScreenSharing.value) {
       Get.snackbar(
-        'مشاركة الشاشة',
-        'تم بدء مشاركة الشاشة',
+        'screen_sharing'.tr,
+        'screen_share_on'.tr,
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.black54,
         colorText: Colors.white,
       );
 
-      // إعلام المشاركين
+      // Notify participants
       _chatMessages.add(ChatMessage(
-        senderName: 'النظام',
-        text: '📱 بدأ مشاركة الشاشة',
+        senderName: 'system'.tr,
+        text: 'screen_share_started'.tr,
         time: DateTime.now(),
         isMe: false,
       ));
     } else {
       _chatMessages.add(ChatMessage(
-        senderName: 'النظام',
-        text: '📱 انتهت مشاركة الشاشة',
+        senderName: 'system'.tr,
+        text: 'screen_share_ended'.tr,
         time: DateTime.now(),
         isMe: false,
       ));
@@ -493,16 +493,16 @@ class LiveSessionController extends GetxController {
     }
   }
 
-  /// إرسال رسالة في الدردشة
+  /// Send chat message
   ///
-  /// TODO: للإنتاج - إرسال الرسالة عبر WebSocket/Firebase
+  /// TODO: For production - send message via WebSocket/Firebase
   void sendMessage() {
     final text = chatInputController.text.trim();
     if (text.isEmpty) return;
 
-    // إضافة رسالة المستخدم
+    // Add user message
     _chatMessages.add(ChatMessage(
-      senderName: 'أنت',
+      senderName: 'you'.tr,
       text: text,
       time: DateTime.now(),
       isMe: true,
@@ -511,18 +511,18 @@ class LiveSessionController extends GetxController {
     chatInputController.clear();
 
     // ========================================
-    // محاكاة رد من المشارك الآخر
-    // في الإنتاج: الردود تأتي من الخادم
+    // Mock response from other participant
+    // In production: responses come from server
     // ========================================
     Future.delayed(const Duration(seconds: 2), () {
       _chatMessages.add(ChatMessage(
         senderName: remoteName,
-        text: 'تم استلام رسالتك! ✓',
+        text: 'message_received'.tr,
         time: DateTime.now(),
         isMe: false,
       ));
 
-      // زيادة عداد الرسائل غير المقروءة إذا كانت الدردشة مغلقة
+      // Increment unread counter if chat is closed
       if (!_isChatVisible.value) {
         _unreadMessages.value++;
       }
@@ -530,48 +530,48 @@ class LiveSessionController extends GetxController {
   }
 
   // ========================================
-  // إنهاء الجلسة
+  // End Session
   // ========================================
 
-  /// إنهاء الجلسة ومغادرة الغرفة
+  /// End session and leave room
   Future<void> endSession() async {
-    // إيقاف المؤقت
+    // Stop timer
     _durationTimer?.cancel();
 
     try {
-      // إيقاف الكاميرا المحلية
+      // Stop local camera
       await _webrtcService.stopLocalCamera();
 
-      // تحديث حالة الجلسة
+      // Update session status
       await _sessionRepo.endSession(_sessionId.value);
     } catch (e) {
-      debugPrint('❌ خطأ في إنهاء الجلسة: $e');
+      debugPrint('❌ Error ending session: $e');
     }
 
-    // العودة للصفحة السابقة
+    // Go back to previous page
     Get.back();
 
-    // عرض نافذة التقييم بعد قليل
+    // Show rating dialog after a moment
     await Future.delayed(const Duration(milliseconds: 500));
     _showRatingDialog();
   }
 
-  /// عرض نافذة تقييم الجلسة
+  /// Show session rating dialog
   void _showRatingDialog() {
     final rating = 0.0.obs;
     final comment = TextEditingController();
 
     Get.dialog(
       AlertDialog(
-        title: const Text('تقييم الجلسة'),
+        title: Text('rate_session'.tr),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('كيف كانت تجربتك في الجلسة؟'),
+            Text('session_experience'.tr),
             const SizedBox(height: 16),
 
             // ========================================
-            // نجوم التقييم
+            // Rating stars
             // ========================================
             Obx(() => Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -590,13 +590,13 @@ class LiveSessionController extends GetxController {
             const SizedBox(height: 16),
 
             // ========================================
-            // حقل التعليق
+            // Comment field
             // ========================================
             TextField(
               controller: comment,
-              decoration: const InputDecoration(
-                hintText: 'أضف تعليقاً (اختياري)',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                hintText: 'add_comment'.tr,
+                border: const OutlineInputBorder(),
               ),
               maxLines: 2,
             ),
@@ -605,24 +605,24 @@ class LiveSessionController extends GetxController {
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: const Text('لاحقاً'),
+            child: Text('later'.tr),
           ),
           ElevatedButton(
             onPressed: () {
               if (rating.value > 0) {
-                // حفظ التقييم
+                // Save rating
                 _sessionRepo.rateSession(
                   sessionId: _sessionId.value,
                   rating: rating.value,
                   comment: comment.text.isEmpty ? null : comment.text,
                 );
                 Get.back();
-                Get.snackbar('شكراً', 'تم حفظ تقييمك بنجاح ⭐');
+                Get.snackbar('thank_you'.tr, 'rating_saved'.tr);
               } else {
-                Get.snackbar('تنبيه', 'الرجاء اختيار تقييم');
+                Get.snackbar('warning'.tr, 'select_rating'.tr);
               }
             },
-            child: const Text('إرسال'),
+            child: Text('send'.tr),
           ),
         ],
       ),

@@ -1,10 +1,11 @@
 /// String constants and translation keys
+/// All user-facing strings should use translation keys with .tr extension
 class StringConstants {
   StringConstants._();
 
   // App
   static const String appName = 'EduMaster Pro';
-  static const String appTagline = 'تعلم بذكاء، انجح بتميز';
+  static const String appTagline = 'app_tagline'; // Use with .tr
 
   // General
   static const String ok = 'ok';

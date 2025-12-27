@@ -13,7 +13,7 @@ class TeacherStudentsTab extends GetView<TeacherDashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('طلابي'),
+        title: Text('my_students'.tr),
         centerTitle: true,
         actions: [
           IconButton(
@@ -33,7 +33,7 @@ class TeacherStudentsTab extends GetView<TeacherDashboardController> {
                 Icon(Icons.people_outline, size: 64, color: AppColors.textSecondary),
                 const SizedBox(height: 16),
                 Text(
-                  'لا يوجد طلاب بعد',
+                  'no_students_yet'.tr,
                   style: TextStyle(
                     fontSize: 16,
                     color: AppColors.textSecondary,
@@ -148,17 +148,17 @@ class _StudentCard extends StatelessWidget {
                 children: [
                   _StatItem(
                     icon: Icons.school,
-                    label: 'المستوى',
+                    label: 'level'.tr,
                     value: '$level',
                   ),
                   _StatItem(
                     icon: Icons.video_call,
-                    label: 'الجلسات',
+                    label: 'sessions'.tr,
                     value: '$totalSessions',
                   ),
                   _StatItem(
                     icon: Icons.calendar_today,
-                    label: 'آخر جلسة',
+                    label: 'last_session'.tr,
                     value: '${lastSession.day}/${lastSession.month}',
                   ),
                 ],

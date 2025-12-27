@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/constants/app_constants.dart';
@@ -52,7 +53,7 @@ class SessionCard extends StatelessWidget {
                 children: [
                   // Subject
                   Text(
-                    session.subject ?? 'جلسة',
+                    session.subject ?? 'session'.tr,
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -66,7 +67,7 @@ class SessionCard extends StatelessWidget {
                   // Teacher name
                   if (session.teacher != null)
                     Text(
-                      'مع ${session.teacher!.fullName}',
+                      '${'with'.tr} ${session.teacher!.fullName}',
                       style: TextStyle(
                         fontSize: 12,
                         color: AppColors.textSecondary,
@@ -112,8 +113,8 @@ class SessionCard extends StatelessWidget {
                   color: AppColors.success,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Text(
-                  'انضم',
+                child: Text(
+                  'join'.tr,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12,

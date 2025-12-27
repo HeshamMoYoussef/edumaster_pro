@@ -16,7 +16,7 @@ class TeachersView extends GetView<TeachersController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('المعلمون'),
+        title: Text('teachers'.tr),
         centerTitle: true,
       ),
       body: Column(
@@ -27,7 +27,7 @@ class TeachersView extends GetView<TeachersController> {
             child: TextField(
               onChanged: controller.search,
               decoration: InputDecoration(
-                hintText: 'ابحث عن معلم...',
+                hintText: 'search'.tr,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppConstants.radiusL),
@@ -47,10 +47,10 @@ class TeachersView extends GetView<TeachersController> {
               }
 
               if (controller.teachers.isEmpty) {
-                return const EmptyStateWidget(
+                return EmptyStateWidget(
                   icon: Icons.people_outline,
-                  title: 'لا يوجد معلمون',
-                  description: 'جرب البحث عن معلم آخر',
+                  title: 'no_teachers'.tr,
+                  description: 'no_results'.tr,
                 );
               }
 

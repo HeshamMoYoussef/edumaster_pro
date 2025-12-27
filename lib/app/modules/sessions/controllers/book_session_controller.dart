@@ -61,7 +61,7 @@ class BookSessionController extends GetxController {
         selectedSubject.value = _teacher.value!.subjects.first;
       }
     } catch (e) {
-      Get.snackbar('خطأ', 'فشل تحميل بيانات المعلم');
+      Get.snackbar('error'.tr, 'failed_load_teacher'.tr);
     } finally {
       _isLoading.value = false;
     }
@@ -90,17 +90,17 @@ class BookSessionController extends GetxController {
   Future<void> bookSession() async {
     // Validation
     if (selectedDate.value == null) {
-      Get.snackbar('خطأ', 'يرجى اختيار التاريخ');
+      Get.snackbar('error'.tr, 'please_select_date'.tr);
       return;
     }
 
     if (selectedTime.value.isEmpty) {
-      Get.snackbar('خطأ', 'يرجى اختيار الوقت');
+      Get.snackbar('error'.tr, 'please_select_time'.tr);
       return;
     }
 
     if (selectedSubject.value.isEmpty) {
-      Get.snackbar('خطأ', 'يرجى اختيار المادة');
+      Get.snackbar('error'.tr, 'please_select_subject'.tr);
       return;
     }
 
@@ -137,8 +137,8 @@ class BookSessionController extends GetxController {
 
       Get.back();
       Get.snackbar(
-        'تم الحجز',
-        'تم حجز الجلسة بنجاح وسيتم تذكيرك قبل الموعد',
+        'booking_success'.tr,
+        'session_booked_reminder'.tr,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.green,
         colorText: Colors.white,
@@ -147,7 +147,7 @@ class BookSessionController extends GetxController {
       // Show confirmation dialog
       _showConfirmationDialog(session);
     } catch (e) {
-      Get.snackbar('خطأ', 'فشل حجز الجلسة: $e');
+      Get.snackbar('error'.tr, '${'booking_failed'.tr}: $e');
     } finally {
       _isBooking.value = false;
     }
@@ -160,32 +160,32 @@ class BookSessionController extends GetxController {
           children: [
             Icon(Icons.check_circle, color: Colors.green, size: 28),
             const SizedBox(width: 8),
-            const Text('تم الحجز بنجاح'),
+            Text('booking_success'.tr),
           ],
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _InfoRow('المعلم', teacher?.fullName ?? ''),
-            _InfoRow('المادة', session.subject ?? ''),
-            _InfoRow('التاريخ', '${session.scheduledAt.day}/${session.scheduledAt.month}/${session.scheduledAt.year}'),
-            _InfoRow('الوقت', '${session.scheduledAt.hour}:${session.scheduledAt.minute.toString().padLeft(2, '0')}'),
-            _InfoRow('المدة', '${session.durationMinutes} دقيقة'),
-            _InfoRow('السعر', '${session.price.toInt()} ر.س'),
+            _InfoRow('teacher'.tr, teacher?.fullName ?? ''),
+            _InfoRow('subject'.tr, session.subject ?? ''),
+            _InfoRow('date'.tr, '${session.scheduledAt.day}/${session.scheduledAt.month}/${session.scheduledAt.year}'),
+            _InfoRow('time'.tr, '${session.scheduledAt.hour}:${session.scheduledAt.minute.toString().padLeft(2, '0')}'),
+            _InfoRow('duration'.tr, '${session.durationMinutes} ${'minute'.tr}'),
+            _InfoRow('price'.tr, '${session.price.toInt()} ${'sar'.tr}'),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: const Text('إغلاق'),
+            child: Text('close'.tr),
           ),
           ElevatedButton(
             onPressed: () {
               Get.back();
               Get.toNamed(Routes.sessionDetailsPath(session.id));
             },
-            child: const Text('عرض التفاصيل'),
+            child: Text('view_details'.tr),
           ),
         ],
       ),

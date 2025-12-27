@@ -71,9 +71,9 @@ class NotificationsController extends GetxController {
     try {
       await _userRepo.markAllNotificationsRead();
       _notifications.value = _notifications.map((n) => {...n, 'is_read': true}).toList();
-      Get.snackbar('تم', 'تم تحديد كل الإشعارات كمقروءة');
+      Get.snackbar('done'.tr, 'all_notifications_marked_read'.tr);
     } catch (e) {
-      Get.snackbar('خطأ', 'فشل تحديث الإشعارات');
+      Get.snackbar('error'.tr, 'failed_update_notifications'.tr);
     }
   }
 
@@ -84,20 +84,20 @@ class NotificationsController extends GetxController {
   void clearAll() {
     Get.dialog(
       AlertDialog(
-        title: const Text('مسح جميع الإشعارات'),
-        content: const Text('هل أنت متأكد من مسح جميع الإشعارات؟'),
+        title: Text('clear_all_notifications'.tr),
+        content: Text('confirm_clear_notifications'.tr),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: const Text('إلغاء'),
+            child: Text('cancel'.tr),
           ),
           TextButton(
             onPressed: () {
               _notifications.clear();
               Get.back();
-              Get.snackbar('تم', 'تم مسح جميع الإشعارات');
+              Get.snackbar('done'.tr, 'all_notifications_cleared'.tr);
             },
-            child: const Text('مسح', style: TextStyle(color: Colors.red)),
+            child: Text('clear'.tr, style: const TextStyle(color: Colors.red)),
           ),
         ],
       ),

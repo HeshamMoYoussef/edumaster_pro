@@ -21,7 +21,7 @@ class SessionDetailsView extends GetView<SessionsController> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('تفاصيل الجلسة')),
+      appBar: AppBar(title: Text('session_details'.tr)),
       body: Obx(() {
         if (controller.isLoading || controller.selectedSession == null) {
           return const LoadingWidget();
@@ -32,15 +32,15 @@ class SessionDetailsView extends GetView<SessionsController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(session.subject ?? 'جلسة', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              Text(session.subject ?? 'session'.tr, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               const SizedBox(height: 16),
-              if (session.teacher != null) Text('المعلم: ${session.teacher!.fullName}'),
+              if (session.teacher != null) Text('${'teacher'.tr}: ${session.teacher!.fullName}'),
               const SizedBox(height: 8),
-              Text('المدة: ${session.durationMinutes} دقيقة'),
+              Text('${'duration'.tr}: ${session.durationMinutes} ${'minute'.tr}'),
               const SizedBox(height: 8),
-              Text('الحالة: ${session.status.label}'),
+              Text('${'status'.tr}: ${session.status.label}'),
               const SizedBox(height: 8),
-              Text('السعر: ${session.price} ر.س'),
+              Text('${'price'.tr}: ${session.price} ${'sar'.tr}'),
             ],
           ),
         );

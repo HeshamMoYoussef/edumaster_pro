@@ -13,7 +13,7 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الأرباح'),
+        title: Text('my_earnings'.tr),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -30,7 +30,7 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
             const SizedBox(height: 24),
 
             // Recent Transactions
-            _buildSectionTitle('المعاملات الأخيرة'),
+            _buildSectionTitle('recent_transactions'.tr),
             const SizedBox(height: 12),
             _buildTransactionsList(),
             const SizedBox(height: 24),
@@ -43,7 +43,7 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
                   _showWithdrawDialog(context);
                 },
                 icon: const Icon(Icons.account_balance),
-                label: const Text('سحب الأرباح'),
+                label: Text('withdraw_earnings'.tr),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
@@ -70,16 +70,16 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'الرصيد المتاح',
-            style: TextStyle(
+          Text(
+            'available_balance'.tr,
+            style: const TextStyle(
               color: Colors.white70,
               fontSize: 14,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            '${controller.totalEarnings.toInt()} ر.س',
+            '${controller.totalEarnings.toInt()} ${'sar'.tr}',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 36,
@@ -90,13 +90,13 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
           Row(
             children: [
               _BalanceItem(
-                label: 'هذا الشهر',
-                value: '${controller.monthlyEarnings.toInt()} ر.س',
+                label: 'this_month_earnings'.tr,
+                value: '${controller.monthlyEarnings.toInt()} ${'sar'.tr}',
                 icon: Icons.trending_up,
               ),
               const SizedBox(width: 24),
               _BalanceItem(
-                label: 'الجلسات',
+                label: 'sessions'.tr,
                 value: '${controller.totalSessions}',
                 icon: Icons.video_call,
               ),
@@ -112,8 +112,8 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
       children: [
         Expanded(
           child: _StatCard(
-            title: 'متوسط الجلسة',
-            value: '120 ر.س',
+            title: 'avg_session'.tr,
+            value: '120 ${'sar'.tr}',
             icon: Icons.analytics,
             color: AppColors.info,
           ),
@@ -121,8 +121,8 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
         const SizedBox(width: 12),
         Expanded(
           child: _StatCard(
-            title: 'أعلى يوم',
-            value: '450 ر.س',
+            title: 'highest_day'.tr,
+            value: '450 ${'sar'.tr}',
             icon: Icons.star,
             color: AppColors.warning,
           ),
@@ -145,25 +145,25 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
     // Mock transactions
     final transactions = [
       _Transaction(
-        title: 'جلسة مع أحمد محمد',
+        title: 'session_with'.trParams({'name': 'Ahmed Mohammed'}),
         date: DateTime.now().subtract(const Duration(days: 1)),
         amount: 120,
         isCredit: true,
       ),
       _Transaction(
-        title: 'جلسة مع سارة علي',
+        title: 'session_with'.trParams({'name': 'Sara Ali'}),
         date: DateTime.now().subtract(const Duration(days: 2)),
         amount: 90,
         isCredit: true,
       ),
       _Transaction(
-        title: 'سحب إلى الحساب البنكي',
+        title: 'withdraw_to_bank'.tr,
         date: DateTime.now().subtract(const Duration(days: 5)),
         amount: 500,
         isCredit: false,
       ),
       _Transaction(
-        title: 'جلسة مع خالد عمر',
+        title: 'session_with'.trParams({'name': 'Khalid Omar'}),
         date: DateTime.now().subtract(const Duration(days: 7)),
         amount: 150,
         isCredit: true,
@@ -200,9 +200,9 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'سحب الأرباح',
-              style: TextStyle(
+            Text(
+              'withdraw_earnings'.tr,
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -210,8 +210,8 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
             const SizedBox(height: 24),
             TextField(
               decoration: InputDecoration(
-                labelText: 'المبلغ',
-                prefixText: 'ر.س ',
+                labelText: 'amount'.tr,
+                prefixText: '${'sar'.tr} ',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -221,15 +221,15 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
-                labelText: 'طريقة السحب',
+                labelText: 'withdraw_method'.tr,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              items: const [
-                DropdownMenuItem(value: 'bank', child: Text('تحويل بنكي')),
-                DropdownMenuItem(value: 'stc', child: Text('STC Pay')),
-                DropdownMenuItem(value: 'paypal', child: Text('PayPal')),
+              items: [
+                DropdownMenuItem(value: 'bank', child: Text('bank_transfer'.tr)),
+                const DropdownMenuItem(value: 'stc', child: Text('STC Pay')),
+                const DropdownMenuItem(value: 'paypal', child: Text('PayPal')),
               ],
               onChanged: (value) {},
             ),
@@ -240,15 +240,15 @@ class TeacherEarningsTab extends GetView<TeacherDashboardController> {
                 onPressed: () {
                   Navigator.pop(context);
                   Get.snackbar(
-                    'تم الطلب',
-                    'سيتم معالجة طلب السحب خلال 24-48 ساعة',
+                    'request_submitted'.tr,
+                    'withdraw_processing_time'.tr,
                     snackPosition: SnackPosition.BOTTOM,
                   );
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
-                child: const Text('تأكيد السحب'),
+                child: Text('confirm_withdraw'.tr),
               ),
             ),
           ],
@@ -409,7 +409,7 @@ class _TransactionItem extends StatelessWidget {
             ),
           ),
           Text(
-            '${transaction.isCredit ? '+' : '-'}${transaction.amount.toInt()} ر.س',
+            '${transaction.isCredit ? '+' : '-'}${transaction.amount.toInt()} ${'sar'.tr}',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: transaction.isCredit ? AppColors.success : AppColors.error,

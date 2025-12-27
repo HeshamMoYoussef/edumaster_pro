@@ -15,7 +15,7 @@ class BookSessionView extends GetView<BookSessionController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('حجز جلسة'),
+        title: Text('book_session'.tr),
         centerTitle: true,
       ),
       body: Obx(() {
@@ -33,43 +33,43 @@ class BookSessionView extends GetView<BookSessionController> {
               const SizedBox(height: 24),
 
               // Session type
-              _buildSectionTitle('نوع الجلسة'),
+              _buildSectionTitle('session_type'.tr),
               const SizedBox(height: 12),
               _buildSessionTypeSelector(),
               const SizedBox(height: 24),
 
               // Subject
-              _buildSectionTitle('المادة'),
+              _buildSectionTitle('subjects'.tr),
               const SizedBox(height: 12),
               _buildSubjectSelector(),
               const SizedBox(height: 24),
 
               // Date selection
-              _buildSectionTitle('التاريخ'),
+              _buildSectionTitle('select_date'.tr),
               const SizedBox(height: 12),
               _buildDateSelector(),
               const SizedBox(height: 24),
 
               // Time slots
-              _buildSectionTitle('الوقت'),
+              _buildSectionTitle('select_time'.tr),
               const SizedBox(height: 12),
               _buildTimeSlots(),
               const SizedBox(height: 24),
 
               // Duration
-              _buildSectionTitle('المدة'),
+              _buildSectionTitle('duration'.tr),
               const SizedBox(height: 12),
               _buildDurationSelector(),
               const SizedBox(height: 24),
 
               // Notes
-              _buildSectionTitle('ملاحظات (اختياري)'),
+              _buildSectionTitle('notes_optional'.tr),
               const SizedBox(height: 12),
               TextField(
                 controller: controller.notesController,
                 maxLines: 3,
                 decoration: InputDecoration(
-                  hintText: 'أضف أي ملاحظات للمعلم...',
+                  hintText: 'add_notes_hint'.tr,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -85,7 +85,7 @@ class BookSessionView extends GetView<BookSessionController> {
               SizedBox(
                 width: double.infinity,
                 child: CustomButton(
-                  text: 'تأكيد الحجز',
+                  text: 'confirm_booking'.tr,
                   onPressed: controller.bookSession,
                   isLoading: controller.isBooking,
                 ),
@@ -155,7 +155,7 @@ class BookSessionView extends GetView<BookSessionController> {
                     Text(teacher.formattedRating),
                     const SizedBox(width: 8),
                     Text(
-                      '(${teacher.totalReviews} تقييم)',
+                      '(${teacher.totalReviews} ${'reviews'.tr})',
                       style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
                     ),
                   ],
@@ -183,13 +183,13 @@ class BookSessionView extends GetView<BookSessionController> {
       spacing: 12,
       children: [
         _SelectableChip(
-          label: 'فردية',
+          label: 'one_on_one'.tr,
           icon: Icons.person,
           isSelected: controller.sessionType.value == 'one_on_one',
           onTap: () => controller.sessionType.value = 'one_on_one',
         ),
         _SelectableChip(
-          label: 'جماعية',
+          label: 'group_session'.tr,
           icon: Icons.group,
           isSelected: controller.sessionType.value == 'group',
           onTap: () => controller.sessionType.value = 'group',
@@ -199,7 +199,7 @@ class BookSessionView extends GetView<BookSessionController> {
   }
 
   Widget _buildSubjectSelector() {
-    final subjects = controller.teacher?.subjects ?? ['رياضيات', 'فيزياء', 'كيمياء'];
+    final subjects = controller.teacher?.subjects ?? ['subject_default_1'.tr, 'subject_default_2'.tr, 'subject_default_3'.tr];
     return Obx(() => Wrap(
       spacing: 8,
       runSpacing: 8,
@@ -286,8 +286,8 @@ class BookSessionView extends GetView<BookSessionController> {
           child: Center(
             child: Text(
               controller.selectedDate.value == null
-                  ? 'اختر التاريخ أولاً'
-                  : 'لا توجد أوقات متاحة',
+                  ? 'select_date_first'.tr
+                  : 'no_available_slots'.tr,
               style: TextStyle(color: AppColors.textSecondary),
             ),
           ),
@@ -367,25 +367,25 @@ class BookSessionView extends GetView<BookSessionController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('سعر الساعة', style: TextStyle(color: AppColors.textSecondary)),
-              Text('${controller.hourlyRate.toInt()} ر.س'),
+              Text('price_per_hour'.tr, style: TextStyle(color: AppColors.textSecondary)),
+              Text('${controller.hourlyRate.toInt()} ${'sar'.tr}'),
             ],
           ),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('المدة', style: TextStyle(color: AppColors.textSecondary)),
-              Text('${controller.duration.value} دقيقة'),
+              Text('duration'.tr, style: TextStyle(color: AppColors.textSecondary)),
+              Text('${controller.duration.value} ${'minute'.tr}'),
             ],
           ),
           const Divider(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('الإجمالي', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              Text('total_price'.tr, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               Text(
-                '${controller.totalPrice.toInt()} ر.س',
+                '${controller.totalPrice.toInt()} ${'sar'.tr}',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -400,13 +400,15 @@ class BookSessionView extends GetView<BookSessionController> {
   }
 
   String _getDayName(int weekday) {
-    const days = ['إث', 'ث', 'أر', 'خ', 'ج', 'س', 'أح'];
+    final days = ['mon'.tr, 'tue'.tr, 'wed'.tr, 'thu'.tr, 'fri'.tr, 'sat'.tr, 'sun'.tr];
     return days[weekday - 1];
   }
 
   String _getMonthName(int month) {
-    const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
-                   'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+    final months = [
+      'jan'.tr, 'feb'.tr, 'mar'.tr, 'apr'.tr, 'may_short'.tr, 'jun'.tr,
+      'jul'.tr, 'aug'.tr, 'sep'.tr, 'oct'.tr, 'nov'.tr, 'dec'.tr
+    ];
     return months[month - 1];
   }
 }
@@ -497,7 +499,7 @@ class _DurationOption extends StatelessWidget {
               ),
             ),
             Text(
-              'دقيقة',
+              'minute'.tr,
               style: TextStyle(
                 color: isSelected ? Colors.white70 : AppColors.textSecondary,
               ),

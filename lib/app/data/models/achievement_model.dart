@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 /// Achievement/Badge model
 class AchievementModel {
   final String id;
@@ -80,16 +82,18 @@ class AchievementModel {
 
 /// Achievement type enum
 enum AchievementType {
-  badge('badge', 'شارة'),
-  milestone('milestone', 'إنجاز'),
-  streak('streak', 'سلسلة'),
-  challenge('challenge', 'تحدي'),
-  special('special', 'خاص'),
-  skill('skill', 'مهارة');
+  badge('badge', 'achievement_badge'),
+  milestone('milestone', 'achievement_milestone'),
+  streak('streak', 'achievement_streak'),
+  challenge('challenge', 'achievement_challenge'),
+  special('special', 'achievement_special'),
+  skill('skill', 'achievement_skill');
 
   final String value;
-  final String label;
-  const AchievementType(this.value, this.label);
+  final String labelKey;
+  const AchievementType(this.value, this.labelKey);
+
+  String get label => labelKey.tr;
 
   static AchievementType fromString(String value) {
     return AchievementType.values.firstWhere(
@@ -101,15 +105,17 @@ enum AchievementType {
 
 /// Achievement rarity enum
 enum AchievementRarity {
-  common('common', 'عادي'),
-  uncommon('uncommon', 'غير عادي'),
-  rare('rare', 'نادر'),
-  epic('epic', 'أسطوري'),
-  legendary('legendary', 'خرافي');
+  common('common', 'rarity_common'),
+  uncommon('uncommon', 'rarity_uncommon'),
+  rare('rare', 'rarity_rare'),
+  epic('epic', 'rarity_epic'),
+  legendary('legendary', 'rarity_legendary');
 
   final String value;
-  final String label;
-  const AchievementRarity(this.value, this.label);
+  final String labelKey;
+  const AchievementRarity(this.value, this.labelKey);
+
+  String get label => labelKey.tr;
 
   static AchievementRarity fromString(String value) {
     return AchievementRarity.values.firstWhere(
@@ -258,16 +264,18 @@ class DailyChallengeModel {
 
 /// Challenge type enum
 enum ChallengeType {
-  watchLessons('watch_lessons', 'مشاهدة دروس'),
-  completeQuizzes('complete_quizzes', 'إكمال اختبارات'),
-  earnPoints('earn_points', 'كسب نقاط'),
-  studyMinutes('study_minutes', 'دقائق دراسة'),
-  helpOthers('help_others', 'مساعدة الآخرين'),
-  dailyLogin('daily_login', 'تسجيل دخول يومي');
+  watchLessons('watch_lessons', 'challenge_watch_lessons'),
+  completeQuizzes('complete_quizzes', 'challenge_complete_quizzes'),
+  earnPoints('earn_points', 'challenge_earn_points'),
+  studyMinutes('study_minutes', 'challenge_study_minutes'),
+  helpOthers('help_others', 'challenge_help_others'),
+  dailyLogin('daily_login', 'challenge_daily_login');
 
   final String value;
-  final String label;
-  const ChallengeType(this.value, this.label);
+  final String labelKey;
+  const ChallengeType(this.value, this.labelKey);
+
+  String get label => labelKey.tr;
 
   static ChallengeType fromString(String value) {
     return ChallengeType.values.firstWhere(

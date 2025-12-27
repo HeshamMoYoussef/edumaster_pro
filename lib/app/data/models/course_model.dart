@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'teacher_model.dart';
 
 /// Course model
@@ -157,14 +158,14 @@ class CourseModel {
   /// Get formatted duration
   String get formattedDuration {
     if (durationMinutes < 60) {
-      return '$durationMinutes دقيقة';
+      return '$durationMinutes ${'minute'.tr}';
     }
     final hours = durationMinutes ~/ 60;
     final minutes = durationMinutes % 60;
     if (minutes == 0) {
-      return '$hours ${hours == 1 ? 'ساعة' : 'ساعات'}';
+      return '$hours ${hours == 1 ? 'hour'.tr : 'hours'.tr}';
     }
-    return '$hours:${minutes.toString().padLeft(2, '0')} ساعة';
+    return '$hours:${minutes.toString().padLeft(2, '0')} ${'hour'.tr}';
   }
 
   /// Get formatted rating
@@ -176,14 +177,16 @@ class CourseModel {
 
 /// Course level enum
 enum CourseLevel {
-  beginner('beginner', 'مبتدئ'),
-  intermediate('intermediate', 'متوسط'),
-  advanced('advanced', 'متقدم'),
-  expert('expert', 'خبير');
+  beginner('beginner', 'level_beginner'),
+  intermediate('intermediate', 'level_intermediate'),
+  advanced('advanced', 'level_advanced'),
+  expert('expert', 'level_expert');
 
   final String value;
-  final String label;
-  const CourseLevel(this.value, this.label);
+  final String labelKey;
+  const CourseLevel(this.value, this.labelKey);
+
+  String get label => labelKey.tr;
 
   static CourseLevel fromString(String value) {
     return CourseLevel.values.firstWhere(
@@ -263,7 +266,7 @@ class LessonModel {
   /// Get formatted duration
   String get formattedDuration {
     if (durationMinutes < 60) {
-      return '$durationMinutes د';
+      return '$durationMinutes ${'min'.tr}';
     }
     final hours = durationMinutes ~/ 60;
     final minutes = durationMinutes % 60;
@@ -273,15 +276,17 @@ class LessonModel {
 
 /// Lesson type enum
 enum LessonType {
-  video('video', 'فيديو'),
-  article('article', 'مقالة'),
-  quiz('quiz', 'اختبار'),
-  assignment('assignment', 'واجب'),
-  live('live', 'بث مباشر');
+  video('video', 'lesson_video'),
+  article('article', 'lesson_article'),
+  quiz('quiz', 'lesson_quiz'),
+  assignment('assignment', 'lesson_assignment'),
+  live('live', 'lesson_live');
 
   final String value;
-  final String label;
-  const LessonType(this.value, this.label);
+  final String labelKey;
+  const LessonType(this.value, this.labelKey);
+
+  String get label => labelKey.tr;
 
   static LessonType fromString(String value) {
     return LessonType.values.firstWhere(

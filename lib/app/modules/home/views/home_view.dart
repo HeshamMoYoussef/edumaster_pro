@@ -22,7 +22,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       body: Obx(() {
         if (controller.isLoading) {
-          return const LoadingWidget(message: 'جاري تحميل البيانات...');
+          return LoadingWidget(message: 'loading'.tr);
         }
 
         return RefreshIndicator(
@@ -39,8 +39,8 @@ class HomeView extends GetView<HomeController> {
               ),
 
               // ========================================
-              // زر اختبار البث المباشر - للتطوير فقط
-              // TODO: إزالته في الإنتاج
+              // Live streaming test button - for development only
+              // TODO: Remove in production
               // ========================================
               SliverToBoxAdapter(
                 child: Padding(
@@ -60,7 +60,7 @@ class HomeView extends GetView<HomeController> {
                             Icon(Icons.developer_mode, color: Colors.green[700], size: 18),
                             const SizedBox(width: 8),
                             Text(
-                              'اختبار البث المباشر',
+                              'live_session'.tr,
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -80,7 +80,7 @@ class HomeView extends GetView<HomeController> {
                               padding: const EdgeInsets.symmetric(vertical: 12),
                             ),
                             icon: const Icon(Icons.videocam),
-                            label: const Text('دخول جلسة تجريبية'),
+                            label: Text('join_session'.tr),
                           ),
                         ),
                       ],
@@ -106,7 +106,7 @@ class HomeView extends GetView<HomeController> {
               // Categories
               SliverToBoxAdapter(
                 child: _buildSection(
-                  title: 'التصنيفات',
+                  title: 'categories'.tr,
                   child: CategoryList(
                     categories: controller.categories,
                     onCategoryTap: (category) {
@@ -123,7 +123,7 @@ class HomeView extends GetView<HomeController> {
               if (controller.myEnrollments.isNotEmpty)
                 SliverToBoxAdapter(
                   child: _buildSection(
-                    title: 'متابعة التعلم',
+                    title: 'continue_learning'.tr,
                     onSeeAll: () => Get.toNamed(Routes.courses),
                     child: SizedBox(
                       height: 220,
@@ -157,7 +157,7 @@ class HomeView extends GetView<HomeController> {
               if (controller.upcomingSessions.isNotEmpty)
                 SliverToBoxAdapter(
                   child: _buildSection(
-                    title: 'الجلسات القادمة',
+                    title: 'upcoming_sessions'.tr,
                     onSeeAll: () => Get.toNamed(Routes.sessions),
                     child: SizedBox(
                       height: 140,
@@ -173,7 +173,7 @@ class HomeView extends GetView<HomeController> {
                           return SessionCard(
                             session: controller.upcomingSessions[index],
                             onTap: () => Get.toNamed(
-                              // TODO: في الإنتاج - تغيير إلى sessionDetailsPath
+                              // TODO: In production - change to sessionDetailsPath
                               Routes.liveSessionPath(
                                 controller.upcomingSessions[index].id,
                               ),
@@ -188,7 +188,7 @@ class HomeView extends GetView<HomeController> {
               // Featured courses
               SliverToBoxAdapter(
                 child: _buildSection(
-                  title: 'كورسات مميزة',
+                  title: 'featured_courses'.tr,
                   onSeeAll: () => Get.toNamed(Routes.courses),
                   child: SizedBox(
                     height: 220,
@@ -218,7 +218,7 @@ class HomeView extends GetView<HomeController> {
               // Featured teachers
               SliverToBoxAdapter(
                 child: _buildSection(
-                  title: 'معلمون مميزون',
+                  title: 'featured_teachers'.tr,
                   onSeeAll: () => Get.toNamed(Routes.teachers),
                   child: SizedBox(
                     height: 180,
@@ -284,7 +284,7 @@ class HomeView extends GetView<HomeController> {
                   TextButton(
                     onPressed: onSeeAll,
                     child: Text(
-                      'عرض الكل',
+                      'see_all'.tr,
                       style: TextStyle(
                         color: AppColors.primary,
                         fontWeight: FontWeight.w600,

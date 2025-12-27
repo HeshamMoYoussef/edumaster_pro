@@ -108,7 +108,7 @@ class SplashView extends GetView<SplashController> {
 
   Widget _buildTagline() {
     return Text(
-      'منصة التعليم الذكي',
+      'smart_learning_platform'.tr,
       style: TextStyle(
         fontSize: 16,
         color: Colors.white.withValues(alpha: 0.9),
@@ -159,16 +159,16 @@ class SplashView extends GetView<SplashController> {
 
   String _getLoadingText() {
     final progress = controller.loadingProgress;
-    if (progress < 0.3) return 'جاري التحميل...';
-    if (progress < 0.5) return 'جاري تحميل البيانات...';
-    if (progress < 0.7) return 'جاري التحقق...';
-    if (progress < 0.9) return 'جاري التحضير...';
-    return 'جاهز!';
+    if (progress < 0.3) return 'loading'.tr;
+    if (progress < 0.5) return 'loading_data'.tr;
+    if (progress < 0.7) return 'verifying'.tr;
+    if (progress < 0.9) return 'preparing'.tr;
+    return 'ready'.tr;
   }
 
   Widget _buildVersion() {
     return Text(
-      'الإصدار 1.0.0',
+      '${'version'.tr} 1.0.0',
       style: TextStyle(
         fontSize: 12,
         color: Colors.white.withValues(alpha: 0.6),

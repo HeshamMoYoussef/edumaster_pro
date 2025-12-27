@@ -17,7 +17,7 @@ class CoursesView extends GetView<CoursesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الكورسات'),
+        title: Text('courses'.tr),
         centerTitle: true,
         actions: [
           IconButton(
@@ -34,7 +34,7 @@ class CoursesView extends GetView<CoursesController> {
             child: TextField(
               onChanged: controller.search,
               decoration: InputDecoration(
-                hintText: 'ابحث عن كورسات...',
+                hintText: 'search'.tr,
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(AppConstants.radiusL),
@@ -57,10 +57,10 @@ class CoursesView extends GetView<CoursesController> {
               }
 
               if (controller.courses.isEmpty) {
-                return const EmptyStateWidget(
+                return EmptyStateWidget(
                   icon: Icons.school_outlined,
-                  title: 'لا توجد كورسات',
-                  description: 'جرب تغيير الفلاتر أو البحث عن شيء آخر',
+                  title: 'no_courses'.tr,
+                  description: 'no_results'.tr,
                 );
               }
 
@@ -95,7 +95,7 @@ class CoursesView extends GetView<CoursesController> {
       child: Row(
         children: [
           _CategoryChip(
-            label: 'الكل',
+            label: 'all'.tr,
             isSelected: controller.selectedCategoryId == null,
             onTap: () => controller.setCategory(null),
           ),
@@ -167,9 +167,9 @@ class _FiltersSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'فلترة النتائج',
-            style: TextStyle(
+          Text(
+            'filter'.tr,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -177,9 +177,9 @@ class _FiltersSheet extends StatelessWidget {
           const SizedBox(height: AppConstants.paddingL),
 
           // Level filter
-          const Text(
-            'المستوى',
-            style: TextStyle(
+          Text(
+            'level'.tr,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
@@ -189,22 +189,22 @@ class _FiltersSheet extends StatelessWidget {
                 spacing: 8,
                 children: [
                   _FilterChip(
-                    label: 'الكل',
+                    label: 'all'.tr,
                     isSelected: controller.selectedLevel == null,
                     onTap: () => controller.setLevel(null),
                   ),
                   _FilterChip(
-                    label: 'مبتدئ',
+                    label: 'beginner'.tr,
                     isSelected: controller.selectedLevel == 'beginner',
                     onTap: () => controller.setLevel('beginner'),
                   ),
                   _FilterChip(
-                    label: 'متوسط',
+                    label: 'intermediate'.tr,
                     isSelected: controller.selectedLevel == 'intermediate',
                     onTap: () => controller.setLevel('intermediate'),
                   ),
                   _FilterChip(
-                    label: 'متقدم',
+                    label: 'advanced'.tr,
                     isSelected: controller.selectedLevel == 'advanced',
                     onTap: () => controller.setLevel('advanced'),
                   ),

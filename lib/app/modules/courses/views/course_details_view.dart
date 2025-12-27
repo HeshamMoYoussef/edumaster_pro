@@ -119,7 +119,7 @@ class CourseDetailsView extends GetView<CoursesController> {
                         _StatItem(
                           icon: Icons.people_outline,
                           value: '${course.totalStudents}',
-                          label: 'طالب',
+                          label: 'student'.tr,
                         ),
                         const SizedBox(width: 24),
                         _StatItem(
@@ -131,7 +131,7 @@ class CourseDetailsView extends GetView<CoursesController> {
                         _StatItem(
                           icon: Icons.play_lesson,
                           value: '${course.totalLessons}',
-                          label: 'درس',
+                          label: 'lesson'.tr,
                         ),
                       ],
                     ),
@@ -141,9 +141,9 @@ class CourseDetailsView extends GetView<CoursesController> {
                     const SizedBox(height: AppConstants.paddingL),
 
                     // Description
-                    const Text(
-                      'وصف الكورس',
-                      style: TextStyle(
+                    Text(
+                      'course_description'.tr,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
@@ -160,9 +160,9 @@ class CourseDetailsView extends GetView<CoursesController> {
                     // What you'll learn
                     if (course.whatYouWillLearn.isNotEmpty) ...[
                       const SizedBox(height: AppConstants.paddingL),
-                      const Text(
-                        'ماذا ستتعلم',
-                        style: TextStyle(
+                      Text(
+                        'what_you_will_learn'.tr,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -197,9 +197,9 @@ class CourseDetailsView extends GetView<CoursesController> {
                     // Requirements
                     if (course.requirements.isNotEmpty) ...[
                       const SizedBox(height: AppConstants.paddingL),
-                      const Text(
-                        'المتطلبات',
-                        style: TextStyle(
+                      Text(
+                        'requirements'.tr,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -267,7 +267,7 @@ class CourseDetailsView extends GetView<CoursesController> {
                   children: [
                     if (course.hasDiscount)
                       Text(
-                        '${course.price.toInt()} ر.س',
+                        '${course.price.toInt()} ${'sar'.tr}',
                         style: TextStyle(
                           decoration: TextDecoration.lineThrough,
                           color: AppColors.textSecondary,
@@ -276,8 +276,8 @@ class CourseDetailsView extends GetView<CoursesController> {
                       ),
                     Text(
                       course.isFree
-                          ? 'مجاني'
-                          : '${course.effectivePrice.toInt()} ر.س',
+                          ? 'free'.tr
+                          : '${course.effectivePrice.toInt()} ${'sar'.tr}',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -292,7 +292,7 @@ class CourseDetailsView extends GetView<CoursesController> {
                 // Enroll button
                 Expanded(
                   child: CustomButton(
-                    text: 'سجل الآن',
+                    text: 'enroll_now'.tr,
                     onPressed: () => controller.enrollInCourse(course.id),
                   ),
                 ),

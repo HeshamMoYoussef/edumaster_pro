@@ -67,8 +67,8 @@ class LiveSessionView extends GetView<LiveSessionController> {
           const CircularProgressIndicator(color: Colors.white),
           const SizedBox(height: 24),
           Text(
-            'جاري الاتصال...',
-            style: TextStyle(
+            'connecting'.tr,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 18,
             ),
@@ -108,7 +108,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                 radius: 50,
                 backgroundColor: AppColors.primary,
                 child: Text(
-                  controller.remoteName.isNotEmpty ? controller.remoteName[0] : 'م',
+                  controller.remoteName.isNotEmpty ? controller.remoteName[0] : 'participant'.tr.substring(0, 1),
                   style: const TextStyle(
                     fontSize: 40,
                     color: Colors.white,
@@ -126,8 +126,8 @@ class LiveSessionView extends GetView<LiveSessionController> {
               const SizedBox(height: 8),
               Text(
                 controller.isCameraReady
-                    ? 'الكاميرا مغلقة'
-                    : 'جاري تشغيل الكاميرا...',
+                    ? 'camera_off'.tr
+                    : 'camera_starting'.tr,
                 style: TextStyle(
                   color: Colors.white70,
                   fontSize: 14,
@@ -182,8 +182,8 @@ class LiveSessionView extends GetView<LiveSessionController> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          controller.isCameraReady ? 'الكاميرا مغلقة' : 'جاري التحميل...',
-                          style: TextStyle(
+                          controller.isCameraReady ? 'camera_off'.tr : 'loading'.tr,
+                          style: const TextStyle(
                             color: Colors.white54,
                             fontSize: 10,
                           ),
@@ -275,9 +275,9 @@ class LiveSessionView extends GetView<LiveSessionController> {
                           ),
                         ),
                         const SizedBox(width: 6),
-                        const Text(
-                          'تسجيل',
-                          style: TextStyle(
+                        Text(
+                          'recording'.tr,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 12,
                           ),
@@ -315,7 +315,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
             // Microphone
             Obx(() => _ControlButton(
               icon: controller.isLocalAudioEnabled ? Icons.mic : Icons.mic_off,
-              label: 'الميكروفون',
+              label: 'microphone'.tr,
               isActive: controller.isLocalAudioEnabled,
               onTap: controller.toggleMicrophone,
             )),
@@ -323,7 +323,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
             // Camera
             Obx(() => _ControlButton(
               icon: controller.isLocalVideoEnabled ? Icons.videocam : Icons.videocam_off,
-              label: 'الكاميرا',
+              label: 'camera'.tr,
               isActive: controller.isLocalVideoEnabled,
               onTap: controller.toggleCamera,
             )),
@@ -331,14 +331,14 @@ class LiveSessionView extends GetView<LiveSessionController> {
             // Flip camera
             _ControlButton(
               icon: Icons.flip_camera_ios,
-              label: 'تبديل',
+              label: 'flip_camera'.tr,
               onTap: controller.flipCamera,
             ),
 
             // Screen share
             Obx(() => _ControlButton(
               icon: Icons.screen_share,
-              label: 'مشاركة',
+              label: 'share_screen'.tr,
               isActive: controller.isScreenSharing,
               onTap: controller.toggleScreenShare,
             )),
@@ -346,14 +346,14 @@ class LiveSessionView extends GetView<LiveSessionController> {
             // Whiteboard
             _ControlButton(
               icon: Icons.draw,
-              label: 'السبورة',
+              label: 'whiteboard'.tr,
               onTap: controller.toggleWhiteboard,
             ),
 
             // Chat
             _ControlButton(
               icon: Icons.chat,
-              label: 'الدردشة',
+              label: 'chat'.tr,
               onTap: controller.toggleChat,
               badge: controller.unreadMessages,
             ),
@@ -361,7 +361,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
             // End call
             _ControlButton(
               icon: Icons.call_end,
-              label: 'إنهاء',
+              label: 'end_call'.tr,
               isDestructive: true,
               onTap: () => _showExitDialog(Get.context!),
             ),
@@ -391,9 +391,9 @@ class LiveSessionView extends GetView<LiveSessionController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'الدردشة',
-                    style: TextStyle(
+                  Text(
+                    'chat'.tr,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -430,7 +430,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                       controller: controller.chatInputController,
                       style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        hintText: 'اكتب رسالة...',
+                        hintText: 'type_message'.tr,
                         hintStyle: TextStyle(color: Colors.white54),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(24),
@@ -475,9 +475,9 @@ class LiveSessionView extends GetView<LiveSessionController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'المشاركون',
-                    style: TextStyle(
+                  Text(
+                    'participants'.tr,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -502,7 +502,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     hasVideo: controller.isRemoteVideoEnabled,
                   ),
                   _ParticipantTile(
-                    name: 'أنت',
+                    name: 'you'.tr,
                     isHost: false,
                     isMuted: !controller.isLocalAudioEnabled,
                     hasVideo: controller.isLocalVideoEnabled,
@@ -575,7 +575,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     // زر الإغلاق
                     _WhiteboardToolButton(
                       icon: Icons.close,
-                      tooltip: 'إغلاق السبورة',
+                      tooltip: 'close_whiteboard'.tr,
                       color: Colors.red,
                       onTap: controller.toggleWhiteboard,
                     ),
@@ -586,10 +586,10 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     const SizedBox(width: 8),
 
                     // عنوان السبورة
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        'السبورة التفاعلية',
-                        style: TextStyle(
+                        'interactive_whiteboard'.tr,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -605,21 +605,21 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     // أزرار التحكم
                     _WhiteboardToolButton(
                       icon: Icons.undo,
-                      tooltip: 'تراجع',
+                      tooltip: 'undo'.tr,
                       color: Colors.orange,
                       onTap: controller.undoDrawing,
                     ),
                     const SizedBox(width: 4),
                     _WhiteboardToolButton(
                       icon: Icons.redo,
-                      tooltip: 'إعادة',
+                      tooltip: 'redo'.tr,
                       color: Colors.orange,
                       onTap: () {}, // TODO: implement redo
                     ),
                     const SizedBox(width: 4),
                     _WhiteboardToolButton(
                       icon: Icons.delete_outline,
-                      tooltip: 'مسح الكل',
+                      tooltip: 'clear_all'.tr,
                       color: Colors.red,
                       onTap: () => _showClearConfirmDialog(),
                     ),
@@ -650,7 +650,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     // أدوات الرسم
                     _WhiteboardToolButton(
                       icon: Icons.edit,
-                      tooltip: 'قلم',
+                      tooltip: 'pen'.tr,
                       color: Colors.blue,
                       isSelected: controller.currentDrawingTool == DrawingTool.pen,
                       onTap: () => controller.setDrawingTool(DrawingTool.pen),
@@ -658,7 +658,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     const SizedBox(height: 8),
                     _WhiteboardToolButton(
                       icon: Icons.brush,
-                      tooltip: 'فرشاة',
+                      tooltip: 'brush'.tr,
                       color: Colors.purple,
                       isSelected: controller.currentDrawingTool == DrawingTool.brush,
                       onTap: () => controller.setDrawingTool(DrawingTool.brush),
@@ -666,7 +666,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     const SizedBox(height: 8),
                     _WhiteboardToolButton(
                       icon: Icons.highlight,
-                      tooltip: 'هايلايت',
+                      tooltip: 'highlighter'.tr,
                       color: Colors.yellow,
                       isSelected: controller.currentDrawingTool == DrawingTool.highlighter,
                       onTap: () => controller.setDrawingTool(DrawingTool.highlighter),
@@ -674,7 +674,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     const SizedBox(height: 8),
                     _WhiteboardToolButton(
                       icon: Icons.auto_fix_high,
-                      tooltip: 'ممحاة',
+                      tooltip: 'eraser'.tr,
                       color: Colors.grey,
                       isSelected: controller.currentDrawingTool == DrawingTool.eraser,
                       onTap: () => controller.setDrawingTool(DrawingTool.eraser),
@@ -687,7 +687,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     // الأشكال
                     _WhiteboardToolButton(
                       icon: Icons.crop_square,
-                      tooltip: 'مربع',
+                      tooltip: 'rectangle'.tr,
                       color: Colors.teal,
                       isSelected: controller.currentDrawingTool == DrawingTool.rectangle,
                       onTap: () => controller.setDrawingTool(DrawingTool.rectangle),
@@ -695,7 +695,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     const SizedBox(height: 8),
                     _WhiteboardToolButton(
                       icon: Icons.circle_outlined,
-                      tooltip: 'دائرة',
+                      tooltip: 'circle'.tr,
                       color: Colors.teal,
                       isSelected: controller.currentDrawingTool == DrawingTool.circle,
                       onTap: () => controller.setDrawingTool(DrawingTool.circle),
@@ -703,7 +703,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     const SizedBox(height: 8),
                     _WhiteboardToolButton(
                       icon: Icons.horizontal_rule,
-                      tooltip: 'خط',
+                      tooltip: 'line'.tr,
                       color: Colors.teal,
                       isSelected: controller.currentDrawingTool == DrawingTool.line,
                       onTap: () => controller.setDrawingTool(DrawingTool.line),
@@ -711,7 +711,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     const SizedBox(height: 8),
                     _WhiteboardToolButton(
                       icon: Icons.arrow_forward,
-                      tooltip: 'سهم',
+                      tooltip: 'arrow'.tr,
                       color: Colors.teal,
                       isSelected: controller.currentDrawingTool == DrawingTool.arrow,
                       onTap: () => controller.setDrawingTool(DrawingTool.arrow),
@@ -724,7 +724,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     // نص
                     _WhiteboardToolButton(
                       icon: Icons.text_fields,
-                      tooltip: 'نص',
+                      tooltip: 'text'.tr,
                       color: Colors.indigo,
                       isSelected: controller.currentDrawingTool == DrawingTool.text,
                       onTap: () => controller.setDrawingTool(DrawingTool.text),
@@ -758,9 +758,9 @@ class LiveSessionView extends GetView<LiveSessionController> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       // اختيار اللون
-                      const Text(
-                        'اللون:',
-                        style: TextStyle(color: Colors.white70, fontSize: 11),
+                      Text(
+                        '${'color'.tr}:',
+                        style: const TextStyle(color: Colors.white70, fontSize: 11),
                       ),
                       const SizedBox(width: 8),
                       Obx(() => Row(
@@ -804,9 +804,9 @@ class LiveSessionView extends GetView<LiveSessionController> {
                       const SizedBox(width: 16),
 
                       // اختيار السُمك
-                      const Text(
-                        'السُمك:',
-                        style: TextStyle(color: Colors.white70, fontSize: 11),
+                      Text(
+                        '${'stroke_width'.tr}:',
+                        style: const TextStyle(color: Colors.white70, fontSize: 11),
                       ),
                       const SizedBox(width: 8),
                       Obx(() => Row(
@@ -848,12 +848,12 @@ class LiveSessionView extends GetView<LiveSessionController> {
   void _showClearConfirmDialog() {
     Get.dialog(
       AlertDialog(
-        title: const Text('مسح السبورة'),
-        content: const Text('هل أنت متأكد من مسح كل الرسومات؟'),
+        title: Text('clear_whiteboard'.tr),
+        content: Text('clear_whiteboard_confirm'.tr),
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: const Text('إلغاء'),
+            child: Text('cancel'.tr),
           ),
           ElevatedButton(
             onPressed: () {
@@ -861,7 +861,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
               Get.back();
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('مسح'),
+            child: Text('clear'.tr),
           ),
         ],
       ),
@@ -872,12 +872,12 @@ class LiveSessionView extends GetView<LiveSessionController> {
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('إنهاء الجلسة'),
-        content: const Text('هل أنت متأكد من إنهاء الجلسة؟'),
+        title: Text('end_session'.tr),
+        content: Text('end_session_confirm'.tr),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('إلغاء'),
+            child: Text('cancel'.tr),
           ),
           ElevatedButton(
             onPressed: () {
@@ -885,7 +885,7 @@ class LiveSessionView extends GetView<LiveSessionController> {
               Navigator.of(context).pop(true);
             },
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.error),
-            child: const Text('إنهاء'),
+            child: Text('end'.tr),
           ),
         ],
       ),
@@ -1049,7 +1049,7 @@ class _ParticipantTile extends StatelessWidget {
       ),
       subtitle: isHost
           ? Text(
-              'المضيف',
+              'host'.tr,
               style: TextStyle(color: AppColors.primary, fontSize: 12),
             )
           : null,

@@ -29,26 +29,26 @@ class ParentDashboardView extends GetView<ParentController> {
       bottomNavigationBar: Obx(() => NavigationBar(
         selectedIndex: controller.currentIndex,
         onDestinationSelected: (index) => controller.currentIndex = index,
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'الرئيسية',
+            icon: const Icon(Icons.home_outlined),
+            selectedIcon: const Icon(Icons.home),
+            label: 'home'.tr,
           ),
           NavigationDestination(
-            icon: Icon(Icons.people_outline),
-            selectedIcon: Icon(Icons.people),
-            label: 'الأبناء',
+            icon: const Icon(Icons.people_outline),
+            selectedIcon: const Icon(Icons.people),
+            label: 'my_children'.tr,
           ),
           NavigationDestination(
-            icon: Icon(Icons.analytics_outlined),
-            selectedIcon: Icon(Icons.analytics),
-            label: 'التقارير',
+            icon: const Icon(Icons.analytics_outlined),
+            selectedIcon: const Icon(Icons.analytics),
+            label: 'reports'.tr,
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings),
-            label: 'الإعدادات',
+            icon: const Icon(Icons.settings_outlined),
+            selectedIcon: const Icon(Icons.settings),
+            label: 'settings'.tr,
           ),
         ],
       )),
@@ -58,7 +58,7 @@ class ParentDashboardView extends GetView<ParentController> {
   Widget _buildHomeTab() {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('لوحة ولي الأمر'),
+        title: Text('parent_dashboard'.tr),
         centerTitle: true,
         actions: [
           IconButton(
@@ -77,12 +77,12 @@ class ParentDashboardView extends GetView<ParentController> {
             children: [
               // Welcome
               Text(
-                'مرحباً، ${controller.parentName}',
+                '${'hello'.tr}، ${controller.parentName}',
                 style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               Text(
-                'تابع تقدم أبنائك في التعلم',
+                'follow_children_progress'.tr,
                 style: TextStyle(color: AppColors.textSecondary),
               ),
               const SizedBox(height: 24),
@@ -92,13 +92,13 @@ class ParentDashboardView extends GetView<ParentController> {
               const SizedBox(height: 24),
 
               // Children overview
-              _buildSectionTitle('الأبناء', onSeeAll: () => controller.currentIndex = 1),
+              _buildSectionTitle('my_children'.tr, onSeeAll: () => controller.currentIndex = 1),
               const SizedBox(height: 12),
               _buildChildrenList(),
               const SizedBox(height: 24),
 
               // Recent activity
-              _buildSectionTitle('النشاط الأخير'),
+              _buildSectionTitle('recent_activity'.tr),
               const SizedBox(height: 12),
               _buildRecentActivity(),
             ],
@@ -115,7 +115,7 @@ class ParentDashboardView extends GetView<ParentController> {
           child: _StatCard(
             icon: Icons.people,
             value: '${controller.children.length}',
-            label: 'الأبناء',
+            label: 'my_children'.tr,
             color: AppColors.primary,
           ),
         ),
@@ -124,7 +124,7 @@ class ParentDashboardView extends GetView<ParentController> {
           child: _StatCard(
             icon: Icons.school,
             value: '${controller.children.fold<int>(0, (sum, c) => sum + c.stats.completedCourses)}',
-            label: 'كورسات مكتملة',
+            label: 'completed_courses'.tr,
             color: AppColors.success,
           ),
         ),
@@ -132,8 +132,8 @@ class ParentDashboardView extends GetView<ParentController> {
         Expanded(
           child: _StatCard(
             icon: Icons.access_time,
-            value: '${(controller.children.fold<int>(0, (sum, c) => sum + c.stats.totalStudyMinutes) / 60).toInt()}س',
-            label: 'وقت الدراسة',
+            value: '${(controller.children.fold<int>(0, (sum, c) => sum + c.stats.totalStudyMinutes) / 60).toInt()}${'h'.tr}',
+            label: 'study_time'.tr,
             color: AppColors.info,
           ),
         ),
@@ -152,7 +152,7 @@ class ParentDashboardView extends GetView<ParentController> {
         if (onSeeAll != null)
           TextButton(
             onPressed: onSeeAll,
-            child: const Text('عرض الكل'),
+            child: Text('see_all'.tr),
           ),
       ],
     );
@@ -184,7 +184,7 @@ class ParentDashboardView extends GetView<ParentController> {
                     children: [
                       Text(child.fullName, style: const TextStyle(fontWeight: FontWeight.bold)),
                       Text(
-                        'المستوى ${child.level} • ${child.streak} يوم تتابع',
+                        '${'level'.tr} ${child.level} • ${child.streak} ${'day_streak'.tr}',
                         style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
                       ),
                     ],
@@ -197,7 +197,7 @@ class ParentDashboardView extends GetView<ParentController> {
                       '${child.points}',
                       style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary),
                     ),
-                    Text('نقطة', style: TextStyle(fontSize: 10, color: AppColors.textSecondary)),
+                    Text('points'.tr, style: TextStyle(fontSize: 10, color: AppColors.textSecondary)),
                   ],
                 ),
                 const SizedBox(width: 8),
@@ -213,10 +213,10 @@ class ParentDashboardView extends GetView<ParentController> {
   Widget _buildRecentActivity() {
     // Mock activity
     final activities = [
-      {'icon': Icons.check_circle, 'text': 'أحمد أكمل درس "المعادلات الخطية"', 'time': 'منذ ساعة', 'color': AppColors.success},
-      {'icon': Icons.video_call, 'text': 'سارة حضرت جلسة مع أ. محمد', 'time': 'منذ 3 ساعات', 'color': AppColors.info},
-      {'icon': Icons.star, 'text': 'أحمد حصل على شارة "المثابر"', 'time': 'منذ يوم', 'color': Colors.amber},
-      {'icon': Icons.quiz, 'text': 'سارة أكملت اختبار الفيزياء (85%)', 'time': 'منذ يومين', 'color': AppColors.primary},
+      {'icon': Icons.check_circle, 'text': 'activity_completed_lesson'.trParams({'name': 'Ahmed', 'lesson': 'Linear Equations'}), 'time': 'time_ago_hour'.tr, 'color': AppColors.success},
+      {'icon': Icons.video_call, 'text': 'activity_attended_session'.trParams({'name': 'Sara', 'teacher': 'Mr. Mohammed'}), 'time': 'time_ago_hours'.trParams({'count': '3'}), 'color': AppColors.info},
+      {'icon': Icons.star, 'text': 'activity_earned_badge'.trParams({'name': 'Ahmed', 'badge': 'persistent'.tr}), 'time': 'time_ago_day'.tr, 'color': Colors.amber},
+      {'icon': Icons.quiz, 'text': 'activity_completed_quiz'.trParams({'name': 'Sara', 'subject': 'subject_physics'.tr, 'score': '85'}), 'time': 'time_ago_days'.trParams({'count': '2'}), 'color': AppColors.primary},
     ];
 
     return Column(
@@ -259,7 +259,7 @@ class ParentDashboardView extends GetView<ParentController> {
   Widget _buildChildrenTab() {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الأبناء'),
+        title: Text('my_children'.tr),
         centerTitle: true,
         actions: [
           IconButton(
@@ -296,16 +296,16 @@ class ParentDashboardView extends GetView<ParentController> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'تحديد وقت الدراسة اليومي',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              'set_daily_study_time'.tr,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             Wrap(
               spacing: 12,
               runSpacing: 12,
               children: limits.map((limit) => ChoiceChip(
-                label: Text('$limit دقيقة'),
+                label: Text('$limit ${'minute'.tr}'),
                 selected: false,
                 onSelected: (_) {
                   controller.setStudyLimit(childId, limit);
@@ -322,7 +322,7 @@ class ParentDashboardView extends GetView<ParentController> {
   Widget _buildReportsTab() {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('التقارير'),
+        title: Text('reports'.tr),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -332,12 +332,12 @@ class ParentDashboardView extends GetView<ParentController> {
           children: [
             // Weekly summary
             _buildReportCard(
-              title: 'ملخص الأسبوع',
+              title: 'weekly_summary'.tr,
               icon: Icons.date_range,
               stats: [
-                {'label': 'ساعات الدراسة', 'value': '12'},
-                {'label': 'الدروس المكتملة', 'value': '8'},
-                {'label': 'الاختبارات', 'value': '3'},
+                {'label': 'study_hours'.tr, 'value': '12'},
+                {'label': 'completed_lessons'.tr, 'value': '8'},
+                {'label': 'quizzes'.tr, 'value': '3'},
               ],
             ),
             const SizedBox(height: 16),
@@ -355,7 +355,7 @@ class ParentDashboardView extends GetView<ParentController> {
                   children: [
                     Icon(Icons.bar_chart, size: 48, color: AppColors.textSecondary),
                     const SizedBox(height: 8),
-                    Text('رسم بياني للتقدم', style: TextStyle(color: AppColors.textSecondary)),
+                    Text('progress_chart'.tr, style: TextStyle(color: AppColors.textSecondary)),
                   ],
                 ),
               ),
@@ -363,12 +363,12 @@ class ParentDashboardView extends GetView<ParentController> {
             const SizedBox(height: 16),
 
             // Subjects breakdown
-            const Text('أداء المواد', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text('subject_performance'.tr, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 12),
-            _buildSubjectProgress('الرياضيات', 0.85),
-            _buildSubjectProgress('الفيزياء', 0.72),
-            _buildSubjectProgress('الكيمياء', 0.68),
-            _buildSubjectProgress('اللغة العربية', 0.91),
+            _buildSubjectProgress('subject_math'.tr, 0.85),
+            _buildSubjectProgress('subject_physics'.tr, 0.72),
+            _buildSubjectProgress('subject_chemistry'.tr, 0.68),
+            _buildSubjectProgress('subject_arabic'.tr, 0.91),
           ],
         ),
       ),
@@ -443,39 +443,39 @@ class ParentDashboardView extends GetView<ParentController> {
   Widget _buildSettingsTab() {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الإعدادات'),
+        title: Text('settings'.tr),
         centerTitle: true,
       ),
       body: ListView(
         children: [
           ListTile(
             leading: const Icon(Icons.person),
-            title: const Text('الملف الشخصي'),
+            title: Text('profile'.tr),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => Get.toNamed(Routes.profile),
           ),
           ListTile(
             leading: const Icon(Icons.notifications),
-            title: const Text('الإشعارات'),
+            title: Text('notifications'.tr),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => Get.toNamed(Routes.notifications),
           ),
           ListTile(
             leading: const Icon(Icons.lock),
-            title: const Text('الخصوصية والأمان'),
+            title: Text('privacy_security'.tr),
             trailing: const Icon(Icons.chevron_right),
             onTap: () {},
           ),
           ListTile(
             leading: const Icon(Icons.help),
-            title: const Text('المساعدة'),
+            title: Text('help'.tr),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => Get.toNamed(Routes.help),
           ),
           const Divider(),
           ListTile(
             leading: Icon(Icons.logout, color: AppColors.error),
-            title: Text('تسجيل الخروج', style: TextStyle(color: AppColors.error)),
+            title: Text('logout'.tr, style: TextStyle(color: AppColors.error)),
             onTap: controller.logout,
           ),
         ],
@@ -559,7 +559,7 @@ class _ChildDetailCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(child.fullName, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text('المستوى ${child.level}', style: TextStyle(color: AppColors.textSecondary)),
+                      Text('${'level'.tr} ${child.level}', style: TextStyle(color: AppColors.textSecondary)),
                     ],
                   ),
                 ),
@@ -569,10 +569,10 @@ class _ChildDetailCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _MiniStat(icon: Icons.school, value: '${child.stats.completedCourses}', label: 'كورسات'),
-                _MiniStat(icon: Icons.access_time, value: '${(child.stats.totalStudyMinutes / 60).toInt()}س', label: 'دراسة'),
-                _MiniStat(icon: Icons.local_fire_department, value: '${child.streak}', label: 'تتابع'),
-                _MiniStat(icon: Icons.emoji_events, value: '${child.points}', label: 'نقاط'),
+                _MiniStat(icon: Icons.school, value: '${child.stats.completedCourses}', label: 'courses'.tr),
+                _MiniStat(icon: Icons.access_time, value: '${(child.stats.totalStudyMinutes / 60).toInt()}${'h'.tr}', label: 'study'.tr),
+                _MiniStat(icon: Icons.local_fire_department, value: '${child.streak}', label: 'streak'.tr),
+                _MiniStat(icon: Icons.emoji_events, value: '${child.points}', label: 'points'.tr),
               ],
             ),
             const SizedBox(height: 16),
@@ -582,7 +582,7 @@ class _ChildDetailCard extends StatelessWidget {
                   child: OutlinedButton.icon(
                     onPressed: onSetLimit,
                     icon: const Icon(Icons.timer),
-                    label: const Text('تحديد الوقت'),
+                    label: Text('set_time'.tr),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -590,7 +590,7 @@ class _ChildDetailCard extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: onTap,
                     icon: const Icon(Icons.visibility),
-                    label: const Text('التفاصيل'),
+                    label: Text('details'.tr),
                   ),
                 ),
               ],

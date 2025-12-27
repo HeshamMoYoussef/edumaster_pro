@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 /// Teacher model
 class TeacherModel {
   final String id;
@@ -172,11 +174,11 @@ class TeacherModel {
 
   /// Get experience text
   String get experienceText {
-    if (experienceYears == 0) return 'جديد';
-    if (experienceYears == 1) return 'سنة واحدة';
-    if (experienceYears == 2) return 'سنتان';
-    if (experienceYears <= 10) return '$experienceYears سنوات';
-    return '$experienceYears سنة';
+    if (experienceYears == 0) return 'experience_new'.tr;
+    if (experienceYears == 1) return 'experience_one_year'.tr;
+    if (experienceYears == 2) return 'experience_two_years'.tr;
+    if (experienceYears <= 10) return 'experience_years_count'.trParams({'count': experienceYears.toString()});
+    return '$experienceYears ${'experience_year'.tr}';
   }
 }
 
@@ -242,19 +244,19 @@ class DayAvailability {
   String get dayName {
     switch (day) {
       case 1:
-        return 'الإثنين';
+        return 'weekday_monday'.tr;
       case 2:
-        return 'الثلاثاء';
+        return 'weekday_tuesday'.tr;
       case 3:
-        return 'الأربعاء';
+        return 'weekday_wednesday'.tr;
       case 4:
-        return 'الخميس';
+        return 'weekday_thursday'.tr;
       case 5:
-        return 'الجمعة';
+        return 'weekday_friday'.tr;
       case 6:
-        return 'السبت';
+        return 'weekday_saturday'.tr;
       case 7:
-        return 'الأحد';
+        return 'weekday_sunday'.tr;
       default:
         return '';
     }

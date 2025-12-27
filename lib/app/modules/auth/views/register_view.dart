@@ -40,7 +40,7 @@ class RegisterView extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('إنشاء حساب'),
+        title: Text('create_account'.tr),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -133,9 +133,9 @@ class RegisterView extends GetView<AuthController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'أنا',
-          style: TextStyle(
+        Text(
+          'i_am'.tr,
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -152,7 +152,7 @@ class RegisterView extends GetView<AuthController> {
               child: _RoleCard(
                 role: UserRole.student,
                 icon: Icons.school,
-                label: 'طالب',
+                label: 'student'.tr,
                 isSelected: controller.selectedRole == UserRole.student,
                 onTap: () => controller.selectedRole = UserRole.student,
               ),
@@ -164,7 +164,7 @@ class RegisterView extends GetView<AuthController> {
               child: _RoleCard(
                 role: UserRole.parent,
                 icon: Icons.family_restroom,
-                label: 'ولي أمر',
+                label: 'parent'.tr,
                 isSelected: controller.selectedRole == UserRole.parent,
                 onTap: () => controller.selectedRole = UserRole.parent,
               ),
@@ -176,7 +176,7 @@ class RegisterView extends GetView<AuthController> {
               child: _RoleCard(
                 role: UserRole.teacher,
                 icon: Icons.person_pin,
-                label: 'معلم',
+                label: 'the_teacher'.tr,
                 isSelected: controller.selectedRole == UserRole.teacher,
                 onTap: () => controller.selectedRole = UserRole.teacher,
               ),
@@ -226,11 +226,11 @@ class RegisterView extends GetView<AuthController> {
   String _getRoleDescription(UserRole role) {
     switch (role) {
       case UserRole.student:
-        return 'كطالب، يمكنك حضور الدروس والكورسات والتفاعل مع المعلمين';
+        return 'student_role_description'.tr;
       case UserRole.parent:
-        return 'كولي أمر، يمكنك متابعة تقدم أبنائك ومراقبة نشاطهم التعليمي';
+        return 'parent_role_description'.tr;
       case UserRole.teacher:
-        return 'كمعلم، يمكنك إنشاء الكورسات وتقديم الجلسات الخاصة والمباشرة';
+        return 'teacher_role_description'.tr;
       default:
         return '';
     }
@@ -240,13 +240,13 @@ class RegisterView extends GetView<AuthController> {
   Widget _buildFullNameField() {
     return CustomTextField(
       formControlName: 'full_name',
-      label: 'الاسم الكامل',
-      hint: 'أدخل اسمك الكامل',
+      label: 'full_name'.tr,
+      hint: 'enter_full_name'.tr,
       prefixIcon: Icons.person_outlined,
       textInputAction: TextInputAction.next,
       validationMessages: {
-        'required': (error) => 'الاسم الكامل مطلوب',
-        'minLength': (error) => 'الاسم يجب أن يكون 3 أحرف على الأقل',
+        'required': (error) => 'full_name_required'.tr,
+        'minLength': (error) => 'name_min_length'.tr,
       },
     );
   }
@@ -255,14 +255,14 @@ class RegisterView extends GetView<AuthController> {
   Widget _buildEmailField() {
     return CustomTextField(
       formControlName: 'email',
-      label: 'البريد الإلكتروني',
-      hint: 'أدخل بريدك الإلكتروني',
+      label: 'email'.tr,
+      hint: 'enter_email'.tr,
       prefixIcon: Icons.email_outlined,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       validationMessages: {
-        'required': (error) => 'البريد الإلكتروني مطلوب',
-        'email': (error) => 'البريد الإلكتروني غير صالح',
+        'required': (error) => 'email_required'.tr,
+        'email': (error) => 'invalid_email'.tr,
       },
     );
   }
@@ -272,8 +272,8 @@ class RegisterView extends GetView<AuthController> {
   /// مصمم ليتوافق مع باقي الحقول (CustomTextField)
   Widget _buildPhoneField() {
     return SmartPhoneField(
-      label: 'رقم الهاتف',
-      hint: 'أدخل رقم هاتفك',
+      label: 'phone'.tr,
+      hint: 'enter_phone'.tr,
       onChanged: (phone) {
         // تحديث قيمة الهاتف في النموذج
         controller.registerForm.control('phone').value = phone.completeNumber;
@@ -290,8 +290,8 @@ class RegisterView extends GetView<AuthController> {
   Widget _buildPasswordField() {
     return Obx(() => CustomTextField(
           formControlName: 'password',
-          label: 'كلمة المرور',
-          hint: 'أدخل كلمة المرور',
+          label: 'password'.tr,
+          hint: 'enter_password'.tr,
           prefixIcon: Icons.lock_outlined,
           obscureText: controller.obscurePassword,
           suffixIcon: IconButton(
@@ -304,10 +304,9 @@ class RegisterView extends GetView<AuthController> {
           ),
           textInputAction: TextInputAction.next,
           validationMessages: {
-            'required': (error) => 'كلمة المرور مطلوبة',
-            'minLength': (error) => 'كلمة المرور يجب أن تكون 8 أحرف على الأقل',
-            'pattern': (error) =>
-                'يجب أن تحتوي على حرف كبير وصغير ورقم',
+            'required': (error) => 'password_required'.tr,
+            'minLength': (error) => 'password_too_short'.tr,
+            'pattern': (error) => 'password_pattern'.tr,
           },
         ));
   }
@@ -316,8 +315,8 @@ class RegisterView extends GetView<AuthController> {
   Widget _buildConfirmPasswordField() {
     return Obx(() => CustomTextField(
           formControlName: 'confirm_password',
-          label: 'تأكيد كلمة المرور',
-          hint: 'أعد إدخال كلمة المرور',
+          label: 'confirm_password'.tr,
+          hint: 'reenter_password'.tr,
           prefixIcon: Icons.lock_outlined,
           obscureText: controller.obscureConfirmPassword,
           suffixIcon: IconButton(
@@ -330,8 +329,8 @@ class RegisterView extends GetView<AuthController> {
           ),
           textInputAction: TextInputAction.done,
           validationMessages: {
-            'required': (error) => 'تأكيد كلمة المرور مطلوب',
-            'mustMatch': (error) => 'كلمة المرور غير متطابقة',
+            'required': (error) => 'confirm_password_required'.tr,
+            'mustMatch': (error) => 'password_mismatch'.tr,
           },
         ));
   }
@@ -369,8 +368,7 @@ class RegisterView extends GetView<AuthController> {
                 const SizedBox(width: AppConstants.paddingS),
                 Expanded(
                   child: Text(
-                    'للتسجيل كمعلم، سيتم مراجعة طلبك من قبل الإدارة. '
-                    'قد يستغرق ذلك 24-48 ساعة.',
+                    'teacher_registration_notice'.tr,
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.amber[800],
@@ -389,12 +387,12 @@ class RegisterView extends GetView<AuthController> {
           // ========================================
           CustomTextField(
             formControlName: 'specialization',
-            label: 'التخصص',
-            hint: 'مثال: الرياضيات، الفيزياء',
+            label: 'specialization'.tr,
+            hint: 'specialization_hint'.tr,
             prefixIcon: Icons.school,
             textInputAction: TextInputAction.next,
             validationMessages: {
-              'required': (error) => 'التخصص مطلوب للمعلمين',
+              'required': (error) => 'specialization_required'.tr,
             },
           ),
 
@@ -405,13 +403,13 @@ class RegisterView extends GetView<AuthController> {
           // ========================================
           CustomTextField(
             formControlName: 'experience_years',
-            label: 'سنوات الخبرة',
-            hint: 'عدد سنوات الخبرة في التدريس',
+            label: 'experience_years'.tr,
+            hint: 'experience_years_hint'.tr,
             prefixIcon: Icons.work_history,
             keyboardType: TextInputType.number,
             textInputAction: TextInputAction.next,
             validationMessages: {
-              'required': (error) => 'سنوات الخبرة مطلوبة',
+              'required': (error) => 'experience_required'.tr,
             },
           ),
 
@@ -424,13 +422,13 @@ class RegisterView extends GetView<AuthController> {
           OutlinedButton.icon(
             onPressed: () {
               Get.snackbar(
-                'قريباً',
-                'سيتم إضافة ميزة رفع الشهادات قريباً',
+                'coming_soon'.tr,
+                'upload_certificates_coming_soon'.tr,
                 snackPosition: SnackPosition.BOTTOM,
               );
             },
             icon: const Icon(Icons.upload_file),
-            label: const Text('رفع الشهادات والوثائق'),
+            label: Text('upload_certificates'.tr),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.all(AppConstants.paddingM),
             ),
@@ -465,17 +463,17 @@ class RegisterView extends GetView<AuthController> {
                   color: AppColors.textSecondary,
                 ),
                 children: [
-                  const TextSpan(text: 'أوافق على '),
+                  TextSpan(text: 'i_agree_to'.tr),
                   TextSpan(
-                    text: 'الشروط والأحكام',
+                    text: 'terms_and_conditions'.tr,
                     style: TextStyle(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const TextSpan(text: ' و '),
+                  TextSpan(text: 'and'.tr),
                   TextSpan(
-                    text: 'سياسة الخصوصية',
+                    text: 'privacy_policy'.tr,
                     style: TextStyle(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w600,
@@ -493,7 +491,7 @@ class RegisterView extends GetView<AuthController> {
   /// بناء زر إنشاء الحساب
   Widget _buildRegisterButton() {
     return Obx(() => CustomButton(
-          text: 'إنشاء حساب',
+          text: 'create_account'.tr,
           onPressed: controller.register,
           isLoading: controller.isLoading,
         ));
@@ -505,7 +503,7 @@ class RegisterView extends GetView<AuthController> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'لديك حساب بالفعل؟',
+          'already_have_account'.tr,
           style: TextStyle(
             color: AppColors.textSecondary,
           ),
@@ -513,7 +511,7 @@ class RegisterView extends GetView<AuthController> {
         TextButton(
           onPressed: () => Get.back(),
           child: Text(
-            'سجل دخول',
+            'login'.tr,
             style: TextStyle(
               color: AppColors.primary,
               fontWeight: FontWeight.bold,

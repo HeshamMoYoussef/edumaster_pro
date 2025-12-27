@@ -78,7 +78,7 @@ class AuthController extends GetxController {
 
     // ========================================
     // Register form
-    // يتضمن حقول إضافية للمعلمين
+    // Includes additional fields for teachers
     // ========================================
     registerForm = FormGroup({
       'full_name': FormControl<String>(
@@ -114,8 +114,8 @@ class AuthController extends GetxController {
         validators: [Validators.requiredTrue],
       ),
       // ========================================
-      // حقول إضافية للمعلمين
-      // TODO: للإنتاج - تفعيل التحقق الديناميكي حسب الدور
+      // Additional fields for teachers
+      // TODO: For production - enable dynamic validation based on role
       // ========================================
       'specialization': FormControl<String>(),
       'experience_years': FormControl<String>(),
@@ -201,7 +201,7 @@ class AuthController extends GetxController {
       // Navigate based on user role
       _navigateByRole(user.role);
 
-      Helpers.showSuccess('تم تسجيل الدخول بنجاح');
+      Helpers.showSuccess('success_login'.tr);
     } catch (e) {
       Helpers.showError(e.toString());
     } finally {
@@ -210,41 +210,41 @@ class AuthController extends GetxController {
   }
 
   // ========================================
-  // تسجيل دخول سريع للاختبار (Dev Only)
-  // TODO: إزالة هذه الدوال في الإنتاج
+  // Quick login for testing (Dev Only)
+  // TODO: Remove these functions in production
   // ========================================
 
-  /// تسجيل دخول سريع كطالب
+  /// Quick login as student
   Future<void> quickLoginAsStudent() async {
     await _quickLogin(
       email: 'student@example.com',
       password: 'password123',
       role: UserRole.student,
-      name: 'أحمد الطالب',
+      name: 'Ahmed Student',
     );
   }
 
-  /// تسجيل دخول سريع كولي أمر
+  /// Quick login as parent
   Future<void> quickLoginAsParent() async {
     await _quickLogin(
       email: 'parent@example.com',
       password: 'password123',
       role: UserRole.parent,
-      name: 'أحمد الوالد',
+      name: 'Ahmed Parent',
     );
   }
 
-  /// تسجيل دخول سريع كمعلم
+  /// Quick login as teacher
   Future<void> quickLoginAsTeacher() async {
     await _quickLogin(
       email: 'teacher@example.com',
       password: 'password123',
       role: UserRole.teacher,
-      name: 'أ. سارة المعلمة',
+      name: 'Ms. Sara Teacher',
     );
   }
 
-  /// دالة مساعدة للدخول السريع
+  /// Helper function for quick login
   Future<void> _quickLogin({
     required String email,
     required String password,
@@ -264,7 +264,7 @@ class AuthController extends GetxController {
       await _appController.updateUser(user);
 
       _navigateByRole(user.role);
-      Helpers.showSuccess('مرحباً $name');
+      Helpers.showSuccess('${'welcome'.tr} $name');
     } catch (e) {
       Helpers.showError(e.toString());
     } finally {
@@ -302,7 +302,7 @@ class AuthController extends GetxController {
       // Navigate to OTP
       Get.toNamed(Routes.otp);
 
-      Helpers.showSuccess('تم إنشاء الحساب، يرجى التحقق من البريد الإلكتروني');
+      Helpers.showSuccess('account_created_verify_email'.tr);
     } catch (e) {
       Helpers.showError(e.toString());
     } finally {
@@ -331,7 +331,7 @@ class AuthController extends GetxController {
       // Navigate to OTP
       Get.toNamed(Routes.otp);
 
-      Helpers.showSuccess('تم إرسال رمز التحقق إلى بريدك الإلكتروني');
+      Helpers.showSuccess('otp_sent_to_email'.tr);
     } catch (e) {
       Helpers.showError(e.toString());
     } finally {
@@ -359,9 +359,9 @@ class AuthController extends GetxController {
       if (verified) {
         // Navigate to reset password or main based on flow
         Get.offAllNamed(Routes.login);
-        Helpers.showSuccess('تم التحقق بنجاح');
+        Helpers.showSuccess('verification_success'.tr);
       } else {
-        Helpers.showError('رمز التحقق غير صحيح');
+        Helpers.showError('invalid_otp'.tr);
       }
     } catch (e) {
       Helpers.showError(e.toString());
@@ -380,7 +380,7 @@ class AuthController extends GetxController {
         type: otpType,
       );
 
-      Helpers.showSuccess('تم إرسال رمز التحقق مرة أخرى');
+      Helpers.showSuccess('otp_resent'.tr);
     } catch (e) {
       Helpers.showError(e.toString());
     } finally {
@@ -406,7 +406,7 @@ class AuthController extends GetxController {
 
       // Navigate based on user role
       _navigateByRole(user.role);
-      Helpers.showSuccess('تم تسجيل الدخول بنجاح');
+      Helpers.showSuccess('success_login'.tr);
     } catch (e) {
       Helpers.showError(e.toString());
     } finally {
@@ -450,28 +450,28 @@ class AuthController extends GetxController {
       final errors = control.errors;
 
       if (errors.containsKey('required')) {
-        return '${_getFieldLabel(controlName)} مطلوب';
+        return 'field_required'.trParams({'field': _getFieldLabel(controlName)});
       }
       if (errors.containsKey('email')) {
-        return 'البريد الإلكتروني غير صالح';
+        return 'invalid_email'.tr;
       }
       if (errors.containsKey('minLength')) {
         final minLength = errors['minLength']['requiredLength'];
-        return 'يجب أن يكون على الأقل $minLength أحرف';
+        return 'min_length_required'.trParams({'length': '$minLength'});
       }
       if (errors.containsKey('pattern')) {
         if (controlName == 'phone') {
-          return 'رقم الهاتف غير صالح';
+          return 'invalid_phone'.tr;
         }
         if (controlName == 'password') {
-          return 'كلمة المرور يجب أن تحتوي على حرف كبير وصغير ورقم';
+          return 'password_requirements'.tr;
         }
       }
       if (errors.containsKey('mustMatch')) {
-        return 'كلمة المرور غير متطابقة';
+        return 'passwords_not_match'.tr;
       }
       if (errors.containsKey('requiredTrue')) {
-        return 'يجب الموافقة على الشروط والأحكام';
+        return 'must_accept_terms'.tr;
       }
     }
     return null;
@@ -480,17 +480,17 @@ class AuthController extends GetxController {
   String _getFieldLabel(String controlName) {
     switch (controlName) {
       case 'email':
-        return 'البريد الإلكتروني';
+        return 'email'.tr;
       case 'password':
-        return 'كلمة المرور';
+        return 'password'.tr;
       case 'confirm_password':
-        return 'تأكيد كلمة المرور';
+        return 'confirm_password'.tr;
       case 'full_name':
-        return 'الاسم الكامل';
+        return 'full_name'.tr;
       case 'phone':
-        return 'رقم الهاتف';
+        return 'phone'.tr;
       case 'otp':
-        return 'رمز التحقق';
+        return 'otp_code'.tr;
       default:
         return controlName;
     }

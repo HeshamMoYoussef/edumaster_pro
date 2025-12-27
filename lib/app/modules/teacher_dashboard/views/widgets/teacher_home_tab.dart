@@ -14,7 +14,7 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('لوحة المعلم'),
+        title: Text('teacher_dashboard'.tr),
         centerTitle: true,
         actions: [
           IconButton(
@@ -40,8 +40,8 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
               const SizedBox(height: 24),
 
               // ========================================
-              // زر اختبار البث المباشر - للتطوير فقط
-              // TODO: إزالته في الإنتاج
+              // Test live session button - for development only
+              // TODO: Remove in production
               // ========================================
               _buildTestLiveSessionButton(),
               const SizedBox(height: 24),
@@ -57,13 +57,13 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
               ],
 
               // Today's Sessions
-              _buildSectionTitle('جلسات اليوم', onSeeAll: controller.goToSchedule),
+              _buildSectionTitle('today_sessions'.tr, onSeeAll: controller.goToSchedule),
               const SizedBox(height: 12),
               _buildTodaySessions(),
               const SizedBox(height: 24),
 
               // Quick Actions
-              _buildSectionTitle('إجراءات سريعة'),
+              _buildSectionTitle('quick_actions'.tr),
               const SizedBox(height: 12),
               _buildQuickActions(),
             ],
@@ -77,11 +77,11 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
     final hour = DateTime.now().hour;
     String greeting;
     if (hour < 12) {
-      greeting = 'صباح الخير';
+      greeting = 'good_morning'.tr;
     } else if (hour < 17) {
-      greeting = 'مساء الخير';
+      greeting = 'good_afternoon'.tr;
     } else {
-      greeting = 'مساء الخير';
+      greeting = 'good_evening'.tr;
     }
 
     return Column(
@@ -96,7 +96,7 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
         ),
         const SizedBox(height: 4),
         Text(
-          'أ. ${controller.teacherName}',
+          '${'teacher_prefix'.tr} ${controller.teacherName}',
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -116,28 +116,28 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
       childAspectRatio: 1.5,
       children: [
         _StatCard(
-          title: 'إجمالي الطلاب',
+          title: 'total_students'.tr,
           value: '${controller.totalStudents}',
           icon: Icons.people,
           color: AppColors.primary,
           onTap: controller.goToStudents,
         ),
         _StatCard(
-          title: 'الجلسات المكتملة',
+          title: 'completed_sessions'.tr,
           value: '${controller.totalSessions}',
           icon: Icons.video_call,
           color: AppColors.success,
           onTap: controller.goToSchedule,
         ),
         _StatCard(
-          title: 'أرباح الشهر',
-          value: '${controller.monthlyEarnings.toInt()} ر.س',
+          title: 'monthly_earnings'.tr,
+          value: '${controller.monthlyEarnings.toInt()} ${'sar'.tr}',
           icon: Icons.account_balance_wallet,
           color: AppColors.warning,
           onTap: controller.goToEarnings,
         ),
         _StatCard(
-          title: 'التقييم',
+          title: 'rating'.tr,
           value: controller.rating.toStringAsFixed(1),
           icon: Icons.star,
           color: Colors.amber,
@@ -169,12 +169,12 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'طلبات جديدة',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                Text(
+                  'new_requests'.tr,
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 Text(
-                  'لديك ${controller.pendingRequests} طلبات حجز جديدة',
+                  'pending_booking_requests'.trParams({'count': '${controller.pendingRequests}'}),
                   style: TextStyle(color: AppColors.textSecondary),
                 ),
               ],
@@ -182,7 +182,7 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
           ),
           TextButton(
             onPressed: controller.goToSchedule,
-            child: const Text('عرض'),
+            child: Text('view'.tr),
           ),
         ],
       ),
@@ -200,7 +200,7 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
         if (onSeeAll != null)
           TextButton(
             onPressed: onSeeAll,
-            child: const Text('عرض الكل'),
+            child: Text('see_all'.tr),
           ),
       ],
     );
@@ -221,7 +221,7 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
                 Icon(Icons.event_available, size: 48, color: AppColors.textSecondary),
                 const SizedBox(height: 12),
                 Text(
-                  'لا توجد جلسات اليوم',
+                  'no_sessions_today'.tr,
                   style: TextStyle(color: AppColors.textSecondary),
                 ),
               ],
@@ -238,10 +238,10 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
         itemBuilder: (context, index) {
           final session = controller.todaySessions[index];
           return _SessionCard(
-            studentName: session.student?.fullName ?? 'طالب',
-            subject: session.subject ?? 'جلسة',
+            studentName: session.student?.fullName ?? 'student'.tr,
+            subject: session.subject ?? 'session'.tr,
             time: '${session.scheduledAt.hour}:${session.scheduledAt.minute.toString().padLeft(2, '0')}',
-            duration: '${session.durationMinutes} دقيقة',
+            duration: '${session.durationMinutes} ${'minute'.tr}',
             canStart: session.canJoin,
             onStart: () => controller.startSession(session.id),
           );
@@ -257,29 +257,29 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
       children: [
         _QuickActionButton(
           icon: Icons.schedule,
-          label: 'إدارة الجدول',
+          label: 'manage_schedule'.tr,
           onTap: controller.goToSchedule,
         ),
         _QuickActionButton(
           icon: Icons.people,
-          label: 'قائمة الطلاب',
+          label: 'students_list'.tr,
           onTap: controller.goToStudents,
         ),
         _QuickActionButton(
           icon: Icons.analytics,
-          label: 'التقارير',
+          label: 'reports'.tr,
           onTap: controller.goToEarnings,
         ),
         _QuickActionButton(
           icon: Icons.chat,
-          label: 'الرسائل',
+          label: 'messages'.tr,
           onTap: () {},
         ),
       ],
     );
   }
 
-  /// زر اختبار البث المباشر - للتطوير فقط
+  /// Test live session button - for development only
   Widget _buildTestLiveSessionButton() {
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingM),
@@ -296,7 +296,7 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
               Icon(Icons.developer_mode, color: Colors.green[700], size: 18),
               const SizedBox(width: 8),
               Text(
-                'اختبار البث المباشر',
+                'test_live_session'.tr,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -316,7 +316,7 @@ class TeacherHomeTab extends GetView<TeacherDashboardController> {
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
               icon: const Icon(Icons.videocam),
-              label: const Text('بدء جلسة تجريبية'),
+              label: Text('start_test_session'.tr),
             ),
           ),
         ],
@@ -447,7 +447,7 @@ class _SessionCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     minimumSize: Size.zero,
                   ),
-                  child: const Text('ابدأ', style: TextStyle(fontSize: 12)),
+                  child: Text('start'.tr, style: const TextStyle(fontSize: 12)),
                 ),
             ],
           ),

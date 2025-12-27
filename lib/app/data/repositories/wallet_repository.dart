@@ -80,7 +80,7 @@ class WalletRepository {
         category: TransactionCategory.topUp,
         amount: amount,
         currency: 'SAR',
-        description: 'شحن المحفظة',
+        description: 'wallet_topup'.tr,
         status: TransactionStatus.completed,
         createdAt: DateTime.now(),
       );
@@ -111,7 +111,7 @@ class WalletRepository {
         category: TransactionCategory.withdrawal,
         amount: amount,
         currency: 'SAR',
-        description: 'سحب من المحفظة',
+        description: 'wallet_withdrawal'.tr,
         status: TransactionStatus.pending,
         createdAt: DateTime.now(),
       );
@@ -155,7 +155,7 @@ class WalletRepository {
         category: TransactionCategory.reward,
         amount: coins.toDouble(),
         currency: 'COINS',
-        description: 'استبدال نقاط',
+        description: 'wallet_redeem_points'.tr,
         status: TransactionStatus.completed,
         createdAt: DateTime.now(),
       );
@@ -186,7 +186,7 @@ class WalletRepository {
         category: TransactionCategory.transfer,
         amount: amount,
         currency: 'SAR',
-        description: 'تحويل إلى مستخدم آخر',
+        description: 'wallet_transfer_to_user'.tr,
         status: TransactionStatus.completed,
         createdAt: DateTime.now(),
         metadata: {'recipient_id': recipientId, 'note': note},

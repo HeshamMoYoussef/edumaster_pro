@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/color_constants.dart';
@@ -69,9 +70,9 @@ class StreakCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    const Text(
-                      'يوم متتالي',
-                      style: TextStyle(
+                    Text(
+                      'consecutive_days'.tr,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14,
                       ),
@@ -80,7 +81,7 @@ class StreakCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'أطول سلسلة: ${streak.longestStreak} يوم',
+                  '${'longest_streak'.tr}: ${streak.longestStreak} ${'day'.tr}',
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.9),
                     fontSize: 12,
@@ -105,9 +106,9 @@ class StreakCard extends StatelessWidget {
                   vertical: 10,
                 ),
               ),
-              child: const Text(
-                'تسجيل',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              child: Text(
+                'check_in'.tr,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             )
           else
@@ -129,9 +130,9 @@ class StreakCard extends StatelessWidget {
                     size: 18,
                   ),
                   const SizedBox(width: 4),
-                  const Text(
-                    'تم',
-                    style: TextStyle(
+                  Text(
+                    'done'.tr,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),

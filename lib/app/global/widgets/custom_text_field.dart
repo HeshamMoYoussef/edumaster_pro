@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../core/constants/app_constants.dart';
@@ -81,13 +82,13 @@ class CustomSearchField extends StatelessWidget {
   final VoidCallback? onClear;
   final TextEditingController? controller;
 
-  const CustomSearchField({
+  CustomSearchField({
     super.key,
-    this.hint = 'ابحث...',
+    String? hint,
     this.onChanged,
     this.onClear,
     this.controller,
-  });
+  }) : hint = hint ?? 'search'.tr;
 
   @override
   Widget build(BuildContext context) {

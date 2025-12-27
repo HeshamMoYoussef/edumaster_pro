@@ -108,7 +108,7 @@ class HomeHeader extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    'ابحث عن كورسات أو معلمين...',
+                    'search_courses_teachers'.tr,
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.8),
                       fontSize: 14,

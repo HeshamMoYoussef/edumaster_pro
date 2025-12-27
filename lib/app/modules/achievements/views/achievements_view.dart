@@ -11,7 +11,7 @@ class AchievementsView extends GetView<AchievementsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('الإنجازات'), centerTitle: true),
+      appBar: AppBar(title: Text('achievements'.tr), centerTitle: true),
       body: Obx(() {
         if (controller.isLoading) return const LoadingWidget();
 

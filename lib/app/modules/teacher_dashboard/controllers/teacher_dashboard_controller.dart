@@ -55,7 +55,7 @@ class TeacherDashboardController extends GetxController {
   int get pendingRequests => _pendingRequests.value;
 
   // Teacher info
-  String get teacherName => _appController.currentUser?.fullName ?? 'معلم';
+  String get teacherName => _appController.currentUser?.fullName ?? 'teacher'.tr;
 
   @override
   void onInit() {
@@ -110,17 +110,17 @@ class TeacherDashboardController extends GetxController {
       MockData.currentUser,
       MockData.currentUser.copyWith(
         id: 'student_2',
-        fullName: 'سارة أحمد',
+        fullName: 'Sara Ahmed',
         email: 'sara@example.com',
       ),
       MockData.currentUser.copyWith(
         id: 'student_3',
-        fullName: 'محمد خالد',
+        fullName: 'Mohammed Khalid',
         email: 'mohammed@example.com',
       ),
       MockData.currentUser.copyWith(
         id: 'student_4',
-        fullName: 'نورة سعيد',
+        fullName: 'Noura Saeed',
         email: 'noura@example.com',
       ),
     ];
@@ -141,9 +141,9 @@ class TeacherDashboardController extends GetxController {
       // In real app, call API to accept session
       await Future.delayed(const Duration(milliseconds: 500));
       await loadData();
-      Get.snackbar('نجاح', 'تم قبول الجلسة');
+      Get.snackbar('success'.tr, 'session_accepted'.tr);
     } catch (e) {
-      Get.snackbar('خطأ', 'فشل قبول الجلسة');
+      Get.snackbar('error'.tr, 'session_accept_failed'.tr);
     }
   }
 
@@ -151,9 +151,9 @@ class TeacherDashboardController extends GetxController {
     try {
       await Future.delayed(const Duration(milliseconds: 500));
       await loadData();
-      Get.snackbar('نجاح', 'تم رفض الجلسة');
+      Get.snackbar('success'.tr, 'session_rejected'.tr);
     } catch (e) {
-      Get.snackbar('خطأ', 'فشل رفض الجلسة');
+      Get.snackbar('error'.tr, 'session_reject_failed'.tr);
     }
   }
 

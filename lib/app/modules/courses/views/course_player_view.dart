@@ -30,9 +30,9 @@ class CoursePlayerView extends StatelessWidget {
               color: AppColors.primary,
             ),
             const SizedBox(height: AppConstants.paddingL),
-            const Text(
-              'مشغل الفيديو',
-              style: TextStyle(
+            Text(
+              'video_player'.tr,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -40,7 +40,7 @@ class CoursePlayerView extends StatelessWidget {
             ),
             const SizedBox(height: AppConstants.paddingS),
             Text(
-              'سيتم إضافة مشغل الفيديو هنا',
+              'video_player_placeholder'.tr,
               style: TextStyle(
                 color: Colors.white.withValues(alpha: 0.7),
               ),

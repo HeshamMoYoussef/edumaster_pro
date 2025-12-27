@@ -122,23 +122,23 @@ class TeacherProfileView extends GetView<TeachersController> {
                       children: [
                         _StatColumn(
                           value: teacher.formattedRating,
-                          label: 'التقييم',
+                          label: 'rating'.tr,
                           icon: Icons.star,
                           iconColor: AppColors.warning,
                         ),
                         _StatColumn(
                           value: '${teacher.totalStudents}',
-                          label: 'طالب',
+                          label: 'student'.tr,
                           icon: Icons.people,
                         ),
                         _StatColumn(
                           value: '${teacher.totalSessions}',
-                          label: 'جلسة',
+                          label: 'sessions'.tr,
                           icon: Icons.video_call,
                         ),
                         _StatColumn(
                           value: teacher.experienceText,
-                          label: 'خبرة',
+                          label: 'experience'.tr,
                           icon: Icons.workspace_premium,
                         ),
                       ],
@@ -150,9 +150,9 @@ class TeacherProfileView extends GetView<TeachersController> {
 
                     // Bio
                     if (teacher.bio != null) ...[
-                      const Text(
-                        'نبذة عني',
-                        style: TextStyle(
+                      Text(
+                        'about_me'.tr,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -200,7 +200,7 @@ class TeacherProfileView extends GetView<TeachersController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${teacher.hourlyRate.toInt()} ر.س',
+                      '${teacher.hourlyRate.toInt()} ${'sar'.tr}',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -208,7 +208,7 @@ class TeacherProfileView extends GetView<TeachersController> {
                       ),
                     ),
                     Text(
-                      'للساعة',
+                      'per_hour'.tr,
                       style: TextStyle(
                         fontSize: 12,
                         color: AppColors.textSecondary,
@@ -219,7 +219,7 @@ class TeacherProfileView extends GetView<TeachersController> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: CustomButton(
-                    text: 'احجز جلسة',
+                    text: 'book_session'.tr,
                     onPressed: () {
                       // Navigate to booking screen with teacher ID
                       Get.toNamed(Routes.bookSessionPath(teacher.id));

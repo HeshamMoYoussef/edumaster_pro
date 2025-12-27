@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 /// Custom validators for reactive forms
@@ -260,60 +261,60 @@ extension ValidationMessageExtension on Map<String, dynamic> {
   /// Get localized error message
   String getErrorMessage(String fieldName) {
     if (containsKey('required')) {
-      return 'هذا الحقل مطلوب';
+      return 'validation_field_required'.tr;
     }
     if (containsKey('email')) {
-      return 'البريد الإلكتروني غير صالح';
+      return 'invalid_email'.tr;
     }
     if (containsKey('password')) {
       final passwordErrors = this['password'] as Map<String, dynamic>;
       if (passwordErrors.containsKey('minLength')) {
-        return 'كلمة المرور يجب أن تكون 8 أحرف على الأقل';
+        return 'validation_password_min_length'.tr;
       }
       if (passwordErrors.containsKey('uppercase')) {
-        return 'يجب أن تحتوي على حرف كبير واحد على الأقل';
+        return 'validation_password_uppercase'.tr;
       }
       if (passwordErrors.containsKey('lowercase')) {
-        return 'يجب أن تحتوي على حرف صغير واحد على الأقل';
+        return 'validation_password_lowercase'.tr;
       }
       if (passwordErrors.containsKey('digit')) {
-        return 'يجب أن تحتوي على رقم واحد على الأقل';
+        return 'validation_password_digit'.tr;
       }
     }
     if (containsKey('mustMatch')) {
-      return 'كلمات المرور غير متطابقة';
+      return 'passwords_not_match'.tr;
     }
     if (containsKey('phone')) {
-      return 'رقم الهاتف غير صالح';
+      return 'invalid_phone'.tr;
     }
     if (containsKey('otp')) {
-      return 'رمز التحقق غير صالح';
+      return 'validation_otp_invalid'.tr;
     }
     if (containsKey('minLength')) {
       final minLengthError = this['minLength'] as Map<String, dynamic>;
-      return 'يجب أن يكون ${minLengthError['requiredLength']} أحرف على الأقل';
+      return 'validation_min_length'.trParams({'length': '${minLengthError['requiredLength']}'});
     }
     if (containsKey('maxLength')) {
       final maxLengthError = this['maxLength'] as Map<String, dynamic>;
-      return 'يجب ألا يتجاوز ${maxLengthError['requiredLength']} حرف';
+      return 'validation_max_length'.trParams({'length': '${maxLengthError['requiredLength']}'});
     }
     if (containsKey('url')) {
-      return 'الرابط غير صالح';
+      return 'validation_invalid_url'.tr;
     }
     if (containsKey('range')) {
       final rangeError = this['range'] as Map<String, dynamic>;
-      return 'يجب أن تكون القيمة بين ${rangeError['min']} و ${rangeError['max']}';
+      return 'validation_range'.trParams({'min': '${rangeError['min']}', 'max': '${rangeError['max']}'});
     }
     if (containsKey('futureDate')) {
-      return 'يجب أن يكون التاريخ في المستقبل';
+      return 'validation_future_date'.tr;
     }
     if (containsKey('pastDate')) {
-      return 'يجب أن يكون التاريخ في الماضي';
+      return 'validation_past_date'.tr;
     }
     if (containsKey('minAge')) {
       final minAgeError = this['minAge'] as Map<String, dynamic>;
-      return 'يجب أن يكون العمر ${minAgeError['required']} سنة على الأقل';
+      return 'validation_min_age'.trParams({'years': '${minAgeError['required']}'});
     }
-    return 'قيمة غير صالحة';
+    return 'validation_invalid_value'.tr;
   }
 }

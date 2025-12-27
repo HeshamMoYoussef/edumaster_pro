@@ -13,7 +13,7 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('حسابي'),
+        title: Text('my_account'.tr),
         centerTitle: true,
         actions: [
           IconButton(
@@ -34,11 +34,11 @@ class ProfileView extends GetView<ProfileController> {
           const SizedBox(height: AppConstants.paddingXL),
 
           // Menu items
-          _buildMenuItem(Icons.school, 'كورساتي', () => Get.toNamed(Routes.courses)),
-          _buildMenuItem(Icons.emoji_events, 'إنجازاتي', () => Get.toNamed(Routes.achievements)),
-          _buildMenuItem(Icons.account_balance_wallet, 'محفظتي', () => Get.toNamed(Routes.wallet)),
-          _buildMenuItem(Icons.favorite, 'المفضلة', () => Get.toNamed(Routes.favorites)),
-          _buildMenuItem(Icons.help, 'المساعدة', () => Get.toNamed(Routes.help)),
+          _buildMenuItem(Icons.school, 'my_courses'.tr, () => Get.toNamed(Routes.courses)),
+          _buildMenuItem(Icons.emoji_events, 'my_achievements'.tr, () => Get.toNamed(Routes.achievements)),
+          _buildMenuItem(Icons.account_balance_wallet, 'my_wallet'.tr, () => Get.toNamed(Routes.wallet)),
+          _buildMenuItem(Icons.favorite, 'favorites'.tr, () => Get.toNamed(Routes.favorites)),
+          _buildMenuItem(Icons.help, 'help'.tr, () => Get.toNamed(Routes.help)),
 
           const SizedBox(height: AppConstants.paddingXL),
 
@@ -57,12 +57,12 @@ class ProfileView extends GetView<ProfileController> {
           radius: 50,
           backgroundColor: AppColors.primary.withValues(alpha: 0.1),
           child: Text(
-            user?.fullName.substring(0, 1) ?? 'م',
+            user?.fullName.substring(0, 1) ?? 'student'.tr.substring(0, 1),
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: AppColors.primary),
           ),
         ),
         const SizedBox(height: 16),
-        Text(user?.fullName ?? 'متعلم', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        Text(user?.fullName ?? 'student'.tr, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         Text(user?.email ?? '', style: TextStyle(color: AppColors.textSecondary)),
         const SizedBox(height: 8),
         Container(
@@ -71,7 +71,7 @@ class ProfileView extends GetView<ProfileController> {
             color: AppColors.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Text('المستوى ${user?.level ?? 1}', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
+          child: Text('${'level'.tr} ${user?.level ?? 1}', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold)),
         ),
       ],
     );
@@ -82,9 +82,9 @@ class ProfileView extends GetView<ProfileController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _StatItem(value: '${user?.points ?? 0}', label: 'نقطة'),
-        _StatItem(value: '${user?.eduCoins ?? 0}', label: 'عملة'),
-        _StatItem(value: '${user?.currentStreak ?? 0}', label: 'يوم متتالي'),
+        _StatItem(value: '${user?.points ?? 0}', label: 'points'.tr),
+        _StatItem(value: '${user?.eduCoins ?? 0}', label: 'coins'.tr),
+        _StatItem(value: '${user?.currentStreak ?? 0}', label: 'consecutive_days'.tr),
       ],
     );
   }
@@ -101,7 +101,7 @@ class ProfileView extends GetView<ProfileController> {
   Widget _buildLogoutButton() {
     return ListTile(
       leading: Icon(Icons.logout, color: AppColors.error),
-      title: Text('تسجيل الخروج', style: TextStyle(color: AppColors.error)),
+      title: Text('logout'.tr, style: TextStyle(color: AppColors.error)),
       onTap: () {
         Get.find<AuthController>().logout();
       },

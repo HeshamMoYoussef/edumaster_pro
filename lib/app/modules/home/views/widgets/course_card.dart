@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/color_constants.dart';
@@ -52,7 +53,7 @@ class CourseCard extends StatelessWidget {
                   Row(
                     children: [
                       _buildTag(
-                        course.category?.name ?? 'عام',
+                        course.category?.name ?? 'general'.tr,
                         AppColors.primary,
                       ),
                       const SizedBox(width: 8),
@@ -232,7 +233,7 @@ class CourseCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'التقدم',
+              'progress'.tr,
               style: TextStyle(
                 fontSize: 12,
                 color: AppColors.textSecondary,

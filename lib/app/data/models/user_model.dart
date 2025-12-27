@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 /// User model representing a student or parent
 class UserModel {
   final String id;
@@ -145,16 +147,16 @@ class UserModel {
 
   /// Get level title based on current level
   String get levelTitle {
-    if (level <= 10) return 'متعلم فضولي';
-    if (level <= 20) return 'باحث عن المعرفة';
-    if (level <= 30) return 'نجم صاعد';
-    if (level <= 40) return 'باحث متفانٍ';
-    if (level <= 50) return 'متعلم خبير';
-    if (level <= 60) return 'عقل متمكن';
-    if (level <= 70) return 'بطل أكاديمي';
-    if (level <= 80) return 'بطل المعرفة';
-    if (level <= 90) return 'عالم أسطوري';
-    return 'الأستاذ الكبير';
+    if (level <= 10) return 'level_curious_learner'.tr;
+    if (level <= 20) return 'level_knowledge_seeker'.tr;
+    if (level <= 30) return 'level_rising_star'.tr;
+    if (level <= 40) return 'level_dedicated_scholar'.tr;
+    if (level <= 50) return 'level_expert_learner'.tr;
+    if (level <= 60) return 'level_master_mind'.tr;
+    if (level <= 70) return 'level_academic_champion'.tr;
+    if (level <= 80) return 'level_knowledge_hero'.tr;
+    if (level <= 90) return 'level_legendary_scholar'.tr;
+    return 'level_grand_master'.tr;
   }
 
   /// Progress to next level (0.0 to 1.0)
