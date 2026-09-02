@@ -1,318 +1,309 @@
-# EduMaster Pro
-
 <div align="center">
 
-![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter)
-![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart)
-![GetX](https://img.shields.io/badge/GetX-4.6.6-8B5CF6)
-![License](https://img.shields.io/badge/License-MIT-green)
+# 🎓 EduMaster Pro
 
-**منصة تعليمية متكاملة باللغة العربية**
+### A full-featured education platform — Flutter + GetX, Clean Architecture
 
-[المميزات](#المميزات) | [التثبيت](#التثبيت) | [البنية](#البنية) | [التوثيق](#التوثيق)
+![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=flat-square&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?style=flat-square&logo=dart&logoColor=white)
+![GetX](https://img.shields.io/badge/State-GetX_4.7-8A2BE2?style=flat-square)
+![Clean Architecture](https://img.shields.io/badge/Architecture-Clean-6C757D?style=flat-square)
+![Dio](https://img.shields.io/badge/Networking-Dio-13B9FD?style=flat-square)
+![Reactive Forms](https://img.shields.io/badge/Forms-Reactive_Forms-FF6F00?style=flat-square)
+![WebRTC](https://img.shields.io/badge/Live_Sessions-WebRTC-333333?style=flat-square)
+![i18n](https://img.shields.io/badge/i18n-AR%2FEN-00C853?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+
+[Features](#-features) · [Architecture](#-architecture) · [Installation](#-installation--production-setup) · [Modules](#-modules) · [Documentation](#-documentation)
 
 </div>
 
 ---
 
-## نظرة عامة
+## 📖 Overview
 
-**EduMaster Pro** هي منصة تعليمية شاملة مبنية بـ Flutter، تقدم تجربة تعلم متكاملة للطلاب مع دعم للمعلمين وأولياء الأمور.
+**EduMaster Pro** is a complete education platform serving three distinct audiences from one codebase — students, teachers, and parents — with course delivery, live 1:1 sessions over embedded WebRTC, an AI tutor, gamified achievements, and an in-app wallet.
 
-### الفئات المستهدفة
-
-| الفئة | الميزات |
-|-------|---------|
-| **الطلاب** | كورسات، جلسات مباشرة، مساعد AI، إنجازات |
-| **المعلمون** | إنشاء محتوى، جلسات خاصة، تقييمات |
-| **أولياء الأمور** | متابعة الأبناء، تقارير، إشعارات |
+| Audience | Capabilities |
+|---|---|
+| **Students** | Courses, live sessions, AI assistant, achievements & leaderboard |
+| **Teachers** | Content creation, private sessions, assessments |
+| **Parents** | Progress tracking, usage reports, notifications |
 
 ---
 
-## المميزات
+## ✨ Features
 
-### التعلم الذاتي
-- مكتبة كورسات متنوعة
-- دروس فيديو عالية الجودة
-- تتبع التقدم التلقائي
-- شهادات إتمام
+**Self-paced learning** — a course library with high-quality video lessons, automatic progress tracking, and completion certificates.
 
-### التعلم التفاعلي
-- جلسات مباشرة مع المعلمين
-- حجز مواعيد مرنة
-- غرف محادثة خاصة
+**Live interactive sessions** — book time with a teacher, join a private room over embedded WebRTC (no third-party video SDK dependency), with local notifications reminding both sides before the session starts.
 
-### المساعد الذكي (AI Tutor)
-- إجابة الأسئلة فورياً
-- شرح المفاهيم الصعبة
-- اقتراحات مخصصة
+**AI Tutor** — instant answers to student questions, on-demand concept explanations, and personalized study suggestions.
 
-### نظام التحفيز
-- إنجازات وشارات
-- لوحة المتصدرين
-- تحديات يومية
-- نقاط ومكافآت
+**Gamification** — badges and achievements, a leaderboard, daily challenges, and a points/rewards system to drive engagement.
 
-### المحفظة الرقمية
-- شحن الرصيد
-- شراء الكورسات
-- سجل المعاملات
+**Digital wallet** — top up balance, purchase courses, and review a full transaction history.
 
-### لوحة ولي الأمر
-- متابعة تقدم الأبناء
-- تقارير الاستخدام
-- التحكم بالإعدادات
+**Parent dashboard** — track a child's progress, review usage reports, and control account settings from a separate parent view.
 
 ---
 
-## التقنيات
+## 🏗 Architecture
 
-| التقنية | الاستخدام |
-|---------|-----------|
-| **Flutter 3.x** | Framework |
-| **Dart 3.x** | Language |
-| **GetX** | State Management, DI, Navigation |
-| **Reactive Forms** | Form Validation |
-| **Dio** | HTTP Client |
-| **GetStorage** | Local Storage |
-| **Material 3** | Design System |
+**Clean Architecture** layered on top of **GetX** for state management, dependency injection, and navigation:
 
----
-
-## التثبيت
-
-### المتطلبات
-- Flutter SDK 3.10+
-- Dart SDK 3.0+
-
-### الخطوات
-
-```bash
-# استنساخ المشروع
-git clone https://github.com/your-username/edumaster_pro.git
-
-# الدخول للمجلد
-cd edumaster_pro
-
-# تثبيت المكتبات
-flutter pub get
-
-# تشغيل التطبيق
-flutter run
 ```
-
-### تشغيل على أجهزة محددة
-
-```bash
-# Android
-flutter run -d android
-
-# iOS
-flutter run -d ios
-
-# Web
-flutter run -d chrome
-
-# Windows
-flutter run -d windows
+┌──────────────────────────────────────────────────────────────┐
+│                    Presentation Layer                         │
+│         Views, GetX Controllers, Widgets, Bindings            │
+├──────────────────────────────────────────────────────────────┤
+│                      Domain Layer                              │
+│              Repository contracts, Use Cases                   │
+├──────────────────────────────────────────────────────────────┤
+│                       Data Layer                                │
+│      Models, Repository implementations, Mock/API providers      │
+├──────────────────────────────────────────────────────────────┤
+│                       Core Layer                                 │
+│     Constants, Theme, Utils, Network client, Extensions           │
+└──────────────────────────────────────────────────────────────┘
 ```
-
----
-
-## البنية
 
 ```
 lib/
-├── main.dart                 # نقطة البداية
+├── main.dart
 └── app/
-    ├── core/                 # الطبقة الأساسية
-    │   ├── config/          # إعدادات البيئات
-    │   ├── constants/       # الثوابت
-    │   ├── theme/           # الثيم
-    │   ├── utils/           # الأدوات المساعدة
-    │   └── network/         # HTTP Client
+    ├── core/                  # Cross-cutting: config, constants, theme, utils, network
+    │   ├── config/                 # Environment config (mock vs. real backend)
+    │   ├── constants/
+    │   ├── theme/
+    │   ├── utils/
+    │   └── network/                # ApiClient + interceptors
     │
-    ├── data/                 # طبقة البيانات
-    │   ├── models/          # النماذج
-    │   ├── providers/       # Mock Data
-    │   └── repositories/    # المستودعات
+    ├── data/                  # Models, repository implementations, mock/API providers
+    │   ├── models/
+    │   ├── providers/               # Mock data providers (development/demo mode)
+    │   └── repositories/
     │
-    ├── global/               # المكونات العامة
-    │   ├── bindings/        # DI Bindings
-    │   ├── controllers/     # Global Controllers
-    │   ├── middlewares/     # Route Guards
-    │   └── widgets/         # Reusable Widgets
+    ├── global/                # Cross-module shared code
+    │   ├── bindings/                # GetX dependency-injection bindings
+    │   ├── controllers/              # App-wide controllers
+    │   ├── middlewares/              # Route guards
+    │   └── widgets/                  # Reusable UI components
     │
-    ├── modules/              # الوحدات (14 module)
-    │   ├── splash/
-    │   ├── onboarding/
-    │   ├── auth/
-    │   ├── main/
-    │   ├── home/
-    │   ├── courses/
-    │   ├── teachers/
-    │   ├── sessions/
-    │   ├── ai_tutor/
-    │   ├── wallet/
-    │   ├── achievements/
-    │   ├── profile/
-    │   ├── settings/
-    │   └── parent/
+    ├── modules/               # 14 self-contained feature modules
+    │   ├── splash/  onboarding/  auth/  main/  home/
+    │   ├── courses/  teachers/  sessions/  ai_tutor/
+    │   ├── wallet/  achievements/  profile/  settings/  parent/
     │
-    ├── routes/               # التنقل
-    │   ├── app_routes.dart
-    │   └── app_pages.dart
-    │
-    └── translations/         # الترجمات
-        ├── ar_SA.dart
-        ├── en_US.dart
-        └── app_translations.dart
+    ├── routes/                # app_routes.dart, app_pages.dart — GetX named routes
+    └── translations/          # ar_SA.dart, en_US.dart, app_translations.dart
+```
+
+### Why this shape?
+
+Every module follows the identical `bindings / controllers / views` structure, so a new feature (say, a 15th module) is a mechanical addition rather than an architectural decision — the pattern is already decided.
+
+The interesting design choice is in the **Data layer**: each `RepositoryImpl` holds both a real `ApiClient` and a `MockProvider`, and switches between them based on a single `EnvConfig.useMockData` flag:
+
+```dart
+class AuthRepositoryImpl implements AuthRepository {
+  final ApiClient _api;
+  final MockAuthProvider _mock;
+  bool get _useMock => EnvConfig.useMockData;
+
+  @override
+  Future<Result<User>> login(String email, String password) async {
+    final response = _useMock
+        ? await _mock.login(email, password)
+        : await _api.post('/auth/login', data: {...});
+    return Result.success(User.fromJson(response.data));
+  }
+}
+```
+
+This is dependency inversion doing real work: the app currently ships on mock data for demo/development, and flipping one constant in `env_config.dart` swaps every repository to the live backend — with zero changes to any controller or view, because they only ever depend on the abstract `Repository` contract, never on `ApiClient` or `MockProvider` directly.
+
+### Network Layer
+
+```
+Request → ApiClient → Interceptors → Server
+                            │
+                    ┌───────┴────────┐
+              AuthInterceptor   LoggingInterceptor
+              (attach token)    (dev-only request/response logs)
+                    │
+              ErrorInterceptor  RetryInterceptor
+              (normalize errors) (retry on transient failure)
+                            │
+                     Response/Error
+                            │
+              Repository → Controller → View
 ```
 
 ---
 
-## الوحدات
+## 🚀 Installation & Production Setup
 
-| الوحدة | الوصف | الشاشات |
-|--------|-------|---------|
-| **Splash** | شاشة البداية | 1 |
-| **Onboarding** | التعريف بالتطبيق | 1 (4 pages) |
-| **Auth** | المصادقة | 4 (Login, Register, Forgot, OTP) |
-| **Main** | التنقل الرئيسي | 1 |
-| **Home** | الصفحة الرئيسية | 1 + 6 widgets |
-| **Courses** | الكورسات | 3 (List, Details, Player) |
-| **Teachers** | المعلمون | 2 (List, Profile) |
-| **Sessions** | الجلسات | 2 (List, Details) |
-| **AI Tutor** | المساعد الذكي | 1 |
-| **Wallet** | المحفظة | 1 |
-| **Achievements** | الإنجازات | 2 (List, Leaderboard) |
-| **Profile** | الملف الشخصي | 2 (View, Edit) |
-| **Settings** | الإعدادات | 1 |
-| **Parent** | لوحة ولي الأمر | 1 |
+### Prerequisites
 
----
+- Flutter SDK `3.10+`
+- Dart SDK `^3.10.1`
 
-## اللغات
+### Local Development
 
-يدعم التطبيق لغتين:
+```bash
+git clone https://github.com/HeshamMoYoussef/edumaster_pro.git
+cd edumaster_pro
 
-| اللغة | الكود | الاتجاه |
-|-------|-------|---------|
-| العربية | ar_SA | RTL |
-| الإنجليزية | en_US | LTR |
-
-### تغيير اللغة برمجياً
-
-```dart
-// التبديل للعربية
-Get.updateLocale(const Locale('ar', 'SA'));
-
-// التبديل للإنجليزية
-Get.updateLocale(const Locale('en', 'US'));
+flutter pub get
+flutter run
 ```
 
----
+### Run on a Specific Platform
 
-## الثيم
-
-يدعم التطبيق الوضع الفاتح والداكن:
-
-```dart
-// التبديل للوضع الداكن
-Get.changeThemeMode(ThemeMode.dark);
-
-// التبديل للوضع الفاتح
-Get.changeThemeMode(ThemeMode.light);
-
-// الوضع التلقائي (حسب النظام)
-Get.changeThemeMode(ThemeMode.system);
+```bash
+flutter run -d android
+flutter run -d ios
+flutter run -d chrome    # Web
+flutter run -d windows
 ```
 
----
+### Switching from Mock Data to a Real Backend
 
-## Mock Data
-
-المشروع يعمل حالياً على بيانات وهمية (Mock Data) للتطوير والاختبار:
-
-- 8 تصنيفات تعليمية
-- 6+ معلمين
-- 6+ كورسات
-- 3+ جلسات مباشرة
-- 6+ إنجازات
-- تحديات يومية
-- لوحة متصدرين
-
-### التبديل للـ Backend الحقيقي
+The app ships running on mock data for development/demo purposes. To point it at a live API:
 
 ```dart
-// في lib/app/core/config/env_config.dart
+// lib/app/core/config/env_config.dart
 class EnvConfig {
-  static const bool useMockData = false; // غيّر إلى false
+  static const bool useMockData = false; // set to false
   static const String baseUrl = 'https://api.edumaster.com';
 }
 ```
 
----
-
-## التوثيق
-
-| الملف | الوصف |
-|-------|-------|
-| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | البنية التقنية والأنماط |
-| [PROGRESS.md](docs/PROGRESS.md) | تقدم التطوير |
-| [PLAN.md](docs/PLAN.md) | خطة المشروع |
-
----
-
-## الأوامر المفيدة
+### Useful Commands
 
 ```bash
-# تحليل الكود
-flutter analyze
-
-# تشغيل الاختبارات
-flutter test
-
-# بناء APK
-flutter build apk --release
-
-# بناء iOS
-flutter build ios --release
-
-# بناء Web
-flutter build web --release
-
-# تنظيف المشروع
-flutter clean && flutter pub get
+flutter analyze              # static analysis
+flutter test                 # run tests
+flutter build apk --release  # Android APK
+flutter build ios --release  # iOS
+flutter build web --release  # Web
+flutter clean && flutter pub get  # clean rebuild
 ```
 
 ---
 
-## المساهمة
+## 📦 Modules
 
-1. Fork المشروع
-2. أنشئ branch جديد (`git checkout -b feature/amazing-feature`)
-3. Commit التغييرات (`git commit -m 'Add amazing feature'`)
-4. Push للـ branch (`git push origin feature/amazing-feature`)
-5. افتح Pull Request
+| Module | Description | Screens |
+|---|---|---|
+| **Splash** | App launch screen | 1 |
+| **Onboarding** | App introduction | 1 (4 pages) |
+| **Auth** | Authentication | 4 (Login, Register, Forgot Password, OTP) |
+| **Main** | Root navigation shell | 1 |
+| **Home** | Landing dashboard | 1 + 6 widgets |
+| **Courses** | Course catalog & player | 3 (List, Details, Player) |
+| **Teachers** | Teacher directory | 2 (List, Profile) |
+| **Sessions** | Live session booking | 2 (List, Details) |
+| **AI Tutor** | AI assistant | 1 |
+| **Wallet** | Digital wallet | 1 |
+| **Achievements** | Gamification | 2 (List, Leaderboard) |
+| **Profile** | User profile | 2 (View, Edit) |
+| **Settings** | App settings | 1 |
+| **Parent** | Parent dashboard | 1 |
 
 ---
 
-## الترخيص
+## 🌍 Localization & Theming
 
-هذا المشروع مرخص تحت [MIT License](LICENSE).
+The app ships with full Arabic (RTL) and English (LTR) support out of the box:
+
+| Language | Code | Direction |
+|---|---|---|
+| Arabic | `ar_SA` | RTL |
+| English | `en_US` | LTR |
+
+```dart
+Get.updateLocale(const Locale('ar', 'SA'));   // switch to Arabic
+Get.updateLocale(const Locale('en', 'US'));   // switch to English
+
+Get.changeThemeMode(ThemeMode.dark);    // dark mode
+Get.changeThemeMode(ThemeMode.light);   // light mode
+Get.changeThemeMode(ThemeMode.system);  // follow system
+```
 
 ---
 
-## التواصل
+## 🧪 Mock Data
 
-- **البريد**: support@edumaster.com
-- **الموقع**: https://edumaster.com
+The project currently runs on realistic mock data for development and demo purposes:
+
+- 8 education categories
+- 6+ teachers
+- 6+ courses
+- 3+ live sessions
+- 6+ achievements
+- Daily challenges
+- Leaderboard
+
+See [Switching from Mock Data to a Real Backend](#switching-from-mock-data-to-a-real-backend) above to point the app at a live API.
+
+---
+
+## 📦 Tech Stack
+
+| Concern | Package |
+|---|---|
+| State / DI / Routing | `get` (GetX) |
+| Forms | `reactive_forms` |
+| Local Storage | `get_storage` |
+| Networking | `dio`, `connectivity_plus` |
+| Live Sessions | `flutter_webrtc`, `permission_handler` |
+| Notifications | `flutter_local_notifications`, `timezone` |
+| Media | `video_player`, `chewie`, `cached_network_image`, `image_picker` |
+| UI/Animation | `flutter_animate`, `lottie`, `shimmer`, `iconsax`, `google_fonts` |
+| Charts | `fl_chart` |
+| Utilities | `intl`, `intl_phone_field`, `timeago`, `url_launcher`, `share_plus` |
+
+---
+
+## 📚 Documentation
+
+| File | Description |
+|---|---|
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | Technical architecture and patterns |
+| [APP_DOCUMENTATION.md](docs/APP_DOCUMENTATION.md) | Full app documentation |
+| [PRD_EduMaster_Platform.md](docs/PRD_EduMaster_Platform.md) | Product requirements document |
+| [PROGRESS.md](docs/PROGRESS.md) | Development progress log |
+| [PLAN.md](docs/PLAN.md) | Project plan |
+
+---
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 📬 Contact
+
+- **Email**: support@edumaster.com
+- **Website**: https://edumaster.com
 
 ---
 
 <div align="center">
 
-**صُنع بـ Flutter**
+Made with 💙 by [Hesham Mohamed Youssef](https://github.com/HeshamMoYoussef) using Flutter
 
 </div>
